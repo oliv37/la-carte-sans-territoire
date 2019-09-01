@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Choices from '../Choices';
 import FinishMessage from '../FinishMessage';
 import Button from '../Button';
+import defaultOptions from './defaultOptions';
 import {
     useInitMapHandlersEffect,
     useMapSelectionEffect,
@@ -9,7 +10,9 @@ import {
     useValidatationEffect
   } from '../../utils/hooks';
 
-function MapGame({data, mapComponent: MapComponent}) {
+function MapGame({data, MapComponent, options}) {
+  const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
+
   const [choiceIdSelected, setChoiceIdSelected] = useState("");
   const [mapIdSelected, setMapIdSelected] = useState("");
   const [idsValidated, setIdsValidated] = useState([]);
@@ -44,14 +47,17 @@ function MapGame({data, mapComponent: MapComponent}) {
               onChange={setChoiceIdSelected}
               choiceIdSelected={choiceIdSelected}
               idsValidated={idsValidated}
+              getChoiceLabel={getChoiceLabel}
             />
           </aside>
         </main>
         <footer>
           {finished ? <FinishMessage/> : (
-            <Button onClick={handleValidateClick} disabled={!canValidate}>
-              Valider
-            </Button>  
+            <Button 
+              onClick={handleValidateClick} 
+              disabled={!canValidate}
+              children="Valider"
+            />
           )}
         </footer>
     </div>

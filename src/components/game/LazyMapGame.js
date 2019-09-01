@@ -4,38 +4,29 @@ import Loading from '../Loading';
 import Error from '../Error';
 
 function LazyMapGame({lazyData, ...otherProps}) {
-    const [gameProps, setGameProps] = useState(undefined);
+    const [dataModule, setDataModule] = useState(undefined);
 
     useEffect(() => {
-        setGameProps(undefined);
+        setDataModule(undefined);
 
         lazyData()
-            .then(dataModule => {
-                setGameProps({
-                    data: dataModule.default,
-                    mapComponent: dataModule.MapComponent
-                });
-            })
-            .catch(err => setGameProps(false));
+            .then(dataModule => setDataModule(dataModule))
+            .catch(err => setDataModule(false));
 
     }, [lazyData]);
 
-    if (gameProps === undefined) {
+    if (dataModule === undefined) {
         return <Loading/>;
     }
 
-    if (gameProps === false) {
+    if (dataModule === false) {
         return <Error/>;
     }
 
-    const {data, mapComponent} = gameProps;
-    const key = JSON.stringify(data);
-
     return (
         <MapGame 
-            key={key} 
-            data={data} 
-            mapComponent={mapComponent} 
+            key={JSON.stringify(dataModule.data)}
+            {...dataModule}
             {...otherProps}
         />
     );

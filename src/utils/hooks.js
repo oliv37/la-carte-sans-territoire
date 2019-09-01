@@ -2,8 +2,9 @@ import {useEffect, useCallback} from 'react';
 
 export function useInitMapHandlersEffect(setMapIdSelected) {
     useEffect(() => {
-      document.querySelectorAll(".area").forEach(el => {
-        const mapId = el.classList[1].replace('departement', '');
+      const areas = document.querySelectorAll("[data-id]");
+      Array.from(areas).forEach(el => {
+        const mapId = el.dataset.id;
         
         el.addEventListener('click', e => {
           if (e.target.classList.contains('disabled')) {
@@ -19,7 +20,7 @@ export function useInitMapHandlersEffect(setMapIdSelected) {
 export function useMapSelectionEffect(mapIdSelected) {
     useEffect(() => {
       if (mapIdSelected) {
-        const el = document.querySelector(`.departement${mapIdSelected}`);
+        const el = document.querySelector(`[data-id="${mapIdSelected}"`);
         el.classList.add('selected');
   
         return () => el.classList.remove('selected');
@@ -30,6 +31,8 @@ export function useMapSelectionEffect(mapIdSelected) {
 export function useHandleValidateClick(mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated) {
     return useCallback(
       function handleValidateClick() {
+        console.log(mapIdSelected);
+        console.log(choiceIdSelected);
         if (mapIdSelected && mapIdSelected === choiceIdSelected) {
           setIdsValidated([...idsValidated, choiceIdSelected]);
         }
@@ -41,7 +44,7 @@ export function useValidatationEffect(idsValidated, setChoiceIdSelected, setMapI
         setChoiceIdSelected("");
         setMapIdSelected("");
         idsValidated.forEach(
-            id => document.querySelector(`.departement${id}`).classList.add('disabled')
+            id => document.querySelector(`[data-id="${id}"]`).classList.add('disabled')
         );
     }, [idsValidated, setChoiceIdSelected, setMapIdSelected]);
   }

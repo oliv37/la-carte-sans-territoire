@@ -33,10 +33,13 @@ header a {
 
 ul.home-container {
   margin: 0;
+  padding: 0;
 }
 
 ul.home-container > li {
-  padding: 1rem 0;
+  padding: 3rem 1rem;
+  display: block;
+  border-bottom: .1rem solid gray;
 }
 
 .map-game-container {
@@ -138,19 +141,19 @@ footer button:disabled {
   cursor: default;
 }
 
-.area {
+[data-id] {
 	fill: white;
 	stroke: black;
 	stroke-width: 1;
   cursor: pointer;
 }
 
-.area.selected {
+[data-id].selected {
   cursor: default;
   fill: black;
 }
 
-.area.disabled {
+[data-id].disabled {
   cursor: default;
   fill: gray;
 }

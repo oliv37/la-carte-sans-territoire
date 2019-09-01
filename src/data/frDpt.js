@@ -1,15 +1,27 @@
 export {ReactComponent as MapComponent} from "../res/FrDpt.svg";
 
-const data = [
-    {"id": "01", "label": "Ain"},
-    {"id": "02", "label": "Aisne"},
-    {"id": "03", "label": "Allier"},
-    {"id": "04", "label": "Alpes-de-Haute-Provence"},
-    {"id": "05", "label": "Hautes-Alpes"},
-    {"id": "06", "label": "Alpes-Maritimes"},
-    {"id": "07", "label": "Ardèche"},
-    {"id": "08", "label": "Ardennes"},
-    {"id": "09", "label": "Ariège"},
+export const options = {
+    getChoiceLabel(item) {
+        let {id, label} = item;
+    
+        if (id.length === 1) {
+            id = `0${id}`;
+        }
+
+        return `${id} ${label}`;
+    }
+};
+
+export const data = [
+    {"id": "1", "label": "Ain"},
+    {"id": "2", "label": "Aisne"},
+    {"id": "3", "label": "Allier"},
+    {"id": "4", "label": "Alpes-de-Haute-Provence"},
+    {"id": "5", "label": "Hautes-Alpes"},
+    {"id": "6", "label": "Alpes-Maritimes"},
+    {"id": "7", "label": "Ardèche"},
+    {"id": "8", "label": "Ardennes"},
+    {"id": "9", "label": "Ariège"},
     {"id": "10", "label": "Aube"},
     {"id": "11", "label": "Aude"},
     {"id": "12", "label": "Aveyron"},
@@ -98,5 +110,3 @@ const data = [
     {"id": "94", "label": "Val-de-marne"},
     {"id": "95", "label": "Val-d'oise"}
 ];
-
-export default data;
