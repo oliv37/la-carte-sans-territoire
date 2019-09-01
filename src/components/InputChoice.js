@@ -17,4 +17,4 @@ function InputChoice({id, label, checked, onChange, disabled}) {
     );
 }
 
-export default InputChoice;
+export default React.memo(InputChoice);

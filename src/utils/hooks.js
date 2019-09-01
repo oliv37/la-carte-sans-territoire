@@ -2,7 +2,7 @@ import {useEffect, useCallback} from 'react';
 
 export function useInitMapHandlersEffect(setMapIdSelected) {
     useEffect(() => {
-      document.querySelectorAll(".land").forEach(el => {
+      document.querySelectorAll(".area").forEach(el => {
         const mapId = el.classList[1].replace('departement', '');
         
         el.addEventListener('click', e => {

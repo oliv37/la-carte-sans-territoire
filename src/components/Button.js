@@ -4,4 +4,4 @@ function Button(props) {
     return <button {...props} type="button"/>
 }
 
-export default Button;
+export default React.memo(Button);

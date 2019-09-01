@@ -1,12 +1,13 @@
-function createData(id, routePath) {
+function createData(id, routePath, description) {
     return {
+        lazyData: () => import(`./data/${id}.js`),
         routePath,
-        lazyData: () => import(`./data/${id}.js`) 
+        description
     };
 }
 
 const appData = [
-    createData("frDpt", "french-district")
+    createData("frDpt", "/french-district", "Carte des départements français")
 ];
 
 export default appData;
