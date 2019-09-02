@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 function Header() {
     return (
         <header>
-          <a href="/">La carte sans le territoire</a>
+          <Link to="/">La carte sans le territoire</Link>  
         </header>
     );
 }
