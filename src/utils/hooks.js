@@ -1,4 +1,4 @@
-import {useEffect, useCallback} from 'react';
+import {useEffect, useCallback, useRef} from 'react';
 import localStorage from "./localStorage";
 
 export function useInitMapHandlersEffect(setMapIdSelected) {
@@ -60,7 +60,9 @@ export function useValidatationEffect(idsValidated, setChoiceIdSelected, setMapI
     }, [idsValidated, setChoiceIdSelected, setMapIdSelected]);
 }
 
-export function useUpdateLocalStorageEffect(isInitialMount, id, idsValidated) {
+export function useUpdateLocalStorageEffect(id, idsValidated) {
+  const isInitialMount = useRef(true);
+
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -68,5 +70,5 @@ export function useUpdateLocalStorageEffect(isInitialMount, id, idsValidated) {
     }
 
     localStorage.setItem(id, JSON.stringify(idsValidated));
-  }, [isInitialMount, id, idsValidated]);
+  }, [id, idsValidated]);
 }

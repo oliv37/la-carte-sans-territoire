@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import Choices from '../Choices';
 import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
@@ -14,8 +14,6 @@ import {
 
 function MapGame({id, data, MapComponent, options}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
-
-  const isInitialMount = useRef(true);
 
   const [choiceIdSelected, setChoiceIdSelected] = useState("");
   const [mapIdSelected, setMapIdSelected] = useState("");
@@ -36,11 +34,7 @@ function MapGame({id, data, MapComponent, options}) {
     setChoiceIdSelected, 
     setMapIdSelected
   );
-  useUpdateLocalStorageEffect(
-    isInitialMount,
-    id,
-    idsValidated
-  );
+  useUpdateLocalStorageEffect(id, idsValidated);
 
   const finished = idsValidated.length === data.length;
   const canValidate = mapIdSelected && choiceIdSelected;
