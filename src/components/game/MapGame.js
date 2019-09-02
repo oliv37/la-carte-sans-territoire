@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Choices from '../Choices';
-import FinishMessage from '../FinishMessage';
+import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
 import defaultOptions from './defaultOptions';
 import {
@@ -52,7 +52,7 @@ function MapGame({data, MapComponent, options}) {
           </aside>
         </main>
         <footer>
-          {finished ? <FinishMessage/> : (
+          {finished ? <SuccessMessage/> : (
             <Button 
               onClick={handleValidateClick} 
               disabled={!canValidate}
