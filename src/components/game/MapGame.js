@@ -1,17 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import Choices from '../Choices';
 import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
 import defaultOptions from './defaultOptions';
 import {
+    useInitIdsValidatedEffect,
     useInitMapHandlersEffect,
     useMapSelectionEffect,
     useHandleValidateClick,
-    useValidatationEffect
+    useValidatationEffect,
+    useUpdateLocalStorageEffect
   } from '../../utils/hooks';
 
-function MapGame({data, MapComponent, options}) {
+function MapGame({id, data, MapComponent, options}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
+
+  const isInitialMount = useRef(true);
 
   const [choiceIdSelected, setChoiceIdSelected] = useState("");
   const [mapIdSelected, setMapIdSelected] = useState("");
@@ -19,6 +23,7 @@ function MapGame({data, MapComponent, options}) {
 
   // Effects
   useInitMapHandlersEffect(setMapIdSelected);
+  useInitIdsValidatedEffect(id, setIdsValidated);
   useMapSelectionEffect(mapIdSelected);
   const handleValidateClick = useHandleValidateClick(
     mapIdSelected, 
@@ -30,6 +35,11 @@ function MapGame({data, MapComponent, options}) {
     idsValidated, 
     setChoiceIdSelected, 
     setMapIdSelected
+  );
+  useUpdateLocalStorageEffect(
+    isInitialMount,
+    id,
+    idsValidated
   );
 
   const finished = idsValidated.length === data.length;

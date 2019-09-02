@@ -6,8 +6,8 @@ function Home() {
     return (
         <ul className="home-container">
         {
-            appData.map(({id, routePath, description}, index) => (
-                <li key={index}>
+            appData.map(({id, routePath, description}) => (
+                <li key={id}>
                     <Link to={routePath}>{description}</Link>    
                 </li>
             ))

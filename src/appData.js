@@ -1,8 +1,9 @@
 function createData(id, routePath, description) {
     return {
-        lazyData: () => import(`./data/${id}.js`),
+        id,
         routePath,
-        description
+        description,
+        lazyData: () => import(`./data/${id}.js`),
     };
 }
 

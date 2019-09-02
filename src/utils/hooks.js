@@ -1,4 +1,5 @@
 import {useEffect, useCallback} from 'react';
+import localStorage from "./localStorage";
 
 export function useInitMapHandlersEffect(setMapIdSelected) {
     useEffect(() => {
@@ -15,8 +16,20 @@ export function useInitMapHandlersEffect(setMapIdSelected) {
         });
       });
     }, [setMapIdSelected]);
-  }
-  
+}
+
+export function useInitIdsValidatedEffect(id, setIdsValidated) {
+  useEffect(() => {
+    const itemValue = localStorage.getItem(id);
+
+    try {
+      const idsValidated = itemValue && JSON.parse(itemValue);
+      Array.isArray(idsValidated) && setIdsValidated(idsValidated);
+    } catch {}
+    
+  }, [id, setIdsValidated]);
+}
+
 export function useMapSelectionEffect(mapIdSelected) {
     useEffect(() => {
       if (mapIdSelected) {
@@ -31,8 +44,6 @@ export function useMapSelectionEffect(mapIdSelected) {
 export function useHandleValidateClick(mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated) {
     return useCallback(
       function handleValidateClick() {
-        console.log(mapIdSelected);
-        console.log(choiceIdSelected);
         if (mapIdSelected && mapIdSelected === choiceIdSelected) {
           setIdsValidated([...idsValidated, choiceIdSelected]);
         }
@@ -47,4 +58,15 @@ export function useValidatationEffect(idsValidated, setChoiceIdSelected, setMapI
             id => document.querySelector(`[data-id="${id}"]`).classList.add('disabled')
         );
     }, [idsValidated, setChoiceIdSelected, setMapIdSelected]);
-  }
+}
+
+export function useUpdateLocalStorageEffect(isInitialMount, id, idsValidated) {
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    localStorage.setItem(id, JSON.stringify(idsValidated));
+  }, [isInitialMount, id, idsValidated]);
+}

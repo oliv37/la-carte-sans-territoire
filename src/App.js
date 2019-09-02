@@ -9,18 +9,17 @@ const isProd = process.env.NODE_ENV === 'production';
 const basename = isProd ? '/la-carte-sans-territoire' : undefined;
 
 function App() {
-  console.log(process.env.PUBLIC_URL);
   return (
     <Router basename={basename}>
       <Header/>
       <Route path="/" exact component={Home} />
       {
-        appData.map(({routePath, lazyData}, index) => (
+        appData.map(({id, routePath, lazyData}) => (
           <Route 
-            key={index}
+            key={id}
             path={routePath} 
             render={routeProps => (
-              <LazyMapGame {...routeProps} lazyData={lazyData}/>
+              <LazyMapGame {...routeProps} id={id} lazyData={lazyData}/>
             )} 
           />
         ))
