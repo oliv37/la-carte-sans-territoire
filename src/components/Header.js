@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Header() {
     return (
         <header>
-          <Link to="/us-state">La carte sans le territoire</Link>  
+          <Link to="/">La carte sans le territoire</Link>  
         </header>
     );
 }
