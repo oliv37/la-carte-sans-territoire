@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Choices from '../Choices';
 import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
-import defaultOptions from './defaultOptions';
 import {
     useInitIdsValidatedEffect,
     useInitMapHandlersEffect,
@@ -11,7 +10,11 @@ import {
     useValidatationEffect,
     useUpdateLocalStorageEffect
   } from '../../utils/hooks';
-import lazy from '../lazy';
+import lazy from '../../hoc/lazy';
+
+const defaultOptions = {
+  getChoiceLabel: item => `${item.id} - ${item.label}`
+};
 
 function MapGame({id, data, MapComponent, options}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);

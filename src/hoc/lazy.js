@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import Loading from './Loading';
-import Error from './Error';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
 
 const lazy = mapDataModuleToProps => Component => ({lazyDataModule, ...otherProps}) => {
     const [dataModule, setDataModule] = useState(undefined);
