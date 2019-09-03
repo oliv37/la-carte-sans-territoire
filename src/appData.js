@@ -3,7 +3,7 @@ function createData(id, routePath, description) {
         id,
         routePath,
         description,
-        lazyData: () => import(`./data/${id}.js`),
+        lazyDataModule: () => import(`./data/${id}.js`),
     };
 }
 

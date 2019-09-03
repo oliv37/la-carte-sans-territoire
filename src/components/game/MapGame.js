@@ -11,6 +11,7 @@ import {
     useValidatationEffect,
     useUpdateLocalStorageEffect
   } from '../../utils/hooks';
+import lazy from '../lazy';
 
 function MapGame({id, data, MapComponent, options}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
@@ -68,4 +69,11 @@ function MapGame({id, data, MapComponent, options}) {
   );
 }
 
-export default MapGame;
+const mapDataModuleToProps = ({data, MapComponent, options}) => ({
+  key: JSON.stringify(data), // recreate the component when the dataModule changes
+  data,
+  MapComponent,
+  options
+});
+
+export default lazy(mapDataModuleToProps)(MapGame);
