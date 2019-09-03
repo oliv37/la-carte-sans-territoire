@@ -1,15 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Choices from '../Choices';
 import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
-import {
-    useInitIdsValidatedEffect,
-    useInitMapHandlersEffect,
-    useMapSelectionEffect,
-    useHandleValidateClick,
-    useValidatationEffect,
-    useUpdateLocalStorageEffect
-  } from '../../utils/hooks';
+import {useMapGame} from '../../utils/hooks';
 import lazy from '../../hoc/lazy';
 
 const defaultOptions = {
@@ -19,26 +12,13 @@ const defaultOptions = {
 function MapGame({id, data, MapComponent, options}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
 
-  const [choiceIdSelected, setChoiceIdSelected] = useState("");
-  const [mapIdSelected, setMapIdSelected] = useState("");
-  const [idsValidated, setIdsValidated] = useState([]);
-
-  // Effects
-  useInitMapHandlersEffect(setMapIdSelected);
-  useInitIdsValidatedEffect(id, setIdsValidated);
-  useMapSelectionEffect(mapIdSelected);
-  const handleValidateClick = useHandleValidateClick(
-    mapIdSelected, 
-    choiceIdSelected, 
-    idsValidated, 
-    setIdsValidated
-  );
-  useValidatationEffect(
-    idsValidated, 
-    setChoiceIdSelected, 
-    setMapIdSelected
-  );
-  useUpdateLocalStorageEffect(id, idsValidated);
+  const {
+    choiceIdSelected,
+    mapIdSelected,
+    idsValidated,
+    setChoiceIdSelected,
+    handleValidateClick
+  } = useMapGame(id);
 
   const finished = idsValidated.length === data.length;
   const canValidate = mapIdSelected && choiceIdSelected;
@@ -72,11 +52,6 @@ function MapGame({id, data, MapComponent, options}) {
   );
 }
 
-const mapDataModuleToProps = ({data, MapComponent, options}) => ({
-  key: JSON.stringify(data), // recreate the component when the dataModule changes
-  data,
-  MapComponent,
-  options
-});
+const mapDataModuleToProps = ({data, MapComponent, options}) => ({data, MapComponent, options});
 
 export default lazy(mapDataModuleToProps)(MapGame);

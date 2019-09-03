@@ -1,7 +1,7 @@
-import {useEffect, useCallback, useRef} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import localStorage from "./localStorage";
 
-export function useInitMapHandlersEffect(setMapIdSelected) {
+export function useInitMapHandlersEffect(id, setMapIdSelected) {
     useEffect(() => {
       const areas = document.querySelectorAll("[data-id]");
       Array.from(areas).forEach(el => {
@@ -15,7 +15,14 @@ export function useInitMapHandlersEffect(setMapIdSelected) {
           setMapIdSelected(mapId);
         });
       });
-    }, [setMapIdSelected]);
+    }, [id, setMapIdSelected]);
+}
+
+export function useInitIdsSelectedEffect(id, setChoiceIdSelected, setMapIdSelected) {
+  useEffect(() => {
+    setChoiceIdSelected("");
+    setMapIdSelected("");
+  }, [id, setChoiceIdSelected, setMapIdSelected]);
 }
 
 export function useInitIdsValidatedEffect(id, setIdsValidated) {
@@ -24,51 +31,74 @@ export function useInitIdsValidatedEffect(id, setIdsValidated) {
 
     try {
       const idsValidated = itemValue && JSON.parse(itemValue);
-      Array.isArray(idsValidated) && setIdsValidated(idsValidated);
+      if (Array.isArray(idsValidated)) {
+        setIdsValidated(idsValidated);
+        return;
+      }
     } catch {}
-    
+
+    setIdsValidated([]);
   }, [id, setIdsValidated]);
 }
 
-export function useMapSelectionEffect(mapIdSelected) {
+export function useMapIdSelectedEffect(mapIdSelected) {
     useEffect(() => {
       if (mapIdSelected) {
         const el = document.querySelector(`[data-id="${mapIdSelected}"`);
         el.classList.add('selected');
   
-        return () => el.classList.remove('selected');
+        return () => el && el.classList.remove('selected');
       }
     }, [mapIdSelected]);
-  }
+}
+
+export function useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapIdSelected) {
+  useEffect(() => {
+      setChoiceIdSelected("");
+      setMapIdSelected("");
+      if (Array.isArray(idsValidated)) {
+        idsValidated.forEach(
+          id => document.querySelector(`[data-id="${id}"]`).classList.add('disabled')
+        );
+      }
+
+  }, [idsValidated, setChoiceIdSelected, setMapIdSelected]);
+}
   
-export function useHandleValidateClick(mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated) {
+export function useValidateClickCallback(
+  id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated
+) {
     return useCallback(
       function handleValidateClick() {
         if (mapIdSelected && mapIdSelected === choiceIdSelected) {
-          setIdsValidated([...idsValidated, choiceIdSelected]);
+          const newIdsValidated = [...idsValidated, choiceIdSelected];
+          
+          setIdsValidated(newIdsValidated);
+          localStorage.setItem(id, JSON.stringify(newIdsValidated));
         }
-      }, [mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated]);
-  }
-  
-export function useValidatationEffect(idsValidated, setChoiceIdSelected, setMapIdSelected) {
-    useEffect(() => {
-        setChoiceIdSelected("");
-        setMapIdSelected("");
-        idsValidated.forEach(
-            id => document.querySelector(`[data-id="${id}"]`).classList.add('disabled')
-        );
-    }, [idsValidated, setChoiceIdSelected, setMapIdSelected]);
+      }, [id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated]
+    );
 }
 
-export function useUpdateLocalStorageEffect(id, idsValidated) {
-  const isInitialMount = useRef(true);
+export function useMapGame(id) {
+  const [choiceIdSelected, setChoiceIdSelected] = useState("");
+  const [mapIdSelected, setMapIdSelected] = useState("");
+  const [idsValidated, setIdsValidated] = useState([]);
 
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
+  useInitMapHandlersEffect(id, setMapIdSelected);
+  useInitIdsSelectedEffect(id, setChoiceIdSelected, setMapIdSelected);
+  useInitIdsValidatedEffect(id, setIdsValidated);
+  useMapIdSelectedEffect(mapIdSelected);
+  useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapIdSelected);
+  const handleValidateClick = useValidateClickCallback(
+    id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated
+  );
 
-    localStorage.setItem(id, JSON.stringify(idsValidated));
-  }, [id, idsValidated]);
+  return {
+    choiceIdSelected,
+    mapIdSelected,
+    idsValidated,
+    setChoiceIdSelected,
+    handleValidateClick
+  };
 }

@@ -13,7 +13,7 @@ function App() {
   return (
     <Router basename={basename}>
       <Header/>
-      <Route path="/" exact component={Home} />
+      <Route path="/" exact component={Home}/>
       {
         appData.map(({id, routePath, lazyDataModule}) => (
           <Route 
