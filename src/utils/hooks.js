@@ -1,6 +1,19 @@
 import {useState, useEffect, useCallback} from 'react';
 import localStorage from "./localStorage";
 
+function getIdsValidatedFromLocalStorage(id) {
+  const itemValue = localStorage.getItem(id);
+
+    try {
+      const idsValidated = itemValue && JSON.parse(itemValue);
+      if (Array.isArray(idsValidated)) {
+        return idsValidated;
+      }
+    } catch {}
+
+    return [];
+}
+
 export function useInitMapHandlersEffect(id, setMapIdSelected) {
     useEffect(() => {
       const areas = document.querySelectorAll("[data-id]");
@@ -27,17 +40,7 @@ export function useInitIdsSelectedEffect(id, setChoiceIdSelected, setMapIdSelect
 
 export function useInitIdsValidatedEffect(id, setIdsValidated) {
   useEffect(() => {
-    const itemValue = localStorage.getItem(id);
-
-    try {
-      const idsValidated = itemValue && JSON.parse(itemValue);
-      if (Array.isArray(idsValidated)) {
-        setIdsValidated(idsValidated);
-        return;
-      }
-    } catch {}
-
-    setIdsValidated([]);
+    setIdsValidated(getIdsValidatedFromLocalStorage(id));
   }, [id, setIdsValidated]);
 }
 
@@ -83,7 +86,7 @@ export function useValidateClickCallback(
 export function useMapGame(id) {
   const [choiceIdSelected, setChoiceIdSelected] = useState("");
   const [mapIdSelected, setMapIdSelected] = useState("");
-  const [idsValidated, setIdsValidated] = useState([]);
+  const [idsValidated, setIdsValidated] = useState(() => getIdsValidatedFromLocalStorage(id));
 
   useInitMapHandlersEffect(id, setMapIdSelected);
   useInitIdsSelectedEffect(id, setChoiceIdSelected, setMapIdSelected);
