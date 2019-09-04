@@ -10,50 +10,23 @@ body {
   padding-top: 2rem;
 }
 
-header {
-  font-family: 'Livvic', sans-serif;
-  font-weight: 500;
-  padding: .4rem 2rem;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 2rem;
+.container-full-center {
+  height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  border-bottom: .1rem solid gray;
 }
 
-header a {
-  text-decoration: none;
-  user-select: none;
-  color: inherit;
-  border-bottom: .1rem solib gray;
+.text-large {
+  font-size: 1.7rem;
 }
 
-ul.home-container {
-  margin: 0;
-  padding: 0;
-}
-
-ul.home-container > li {
-  padding: 3rem 1rem;
-  display: block;
-  border-bottom: .1rem solid gray;
-}
+/* Map Game */
 
 .map-game-container {
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.loading-container, .error-container, .not-found-container {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.7rem;
 }
 
 main {
@@ -141,50 +114,19 @@ footer button:disabled {
   cursor: default;
 }
 
-.success-message {
-  font-family: 'Livvic', sans-serif;
-  font-size: 1.2rem;
-  line-height: 2.6rem;
-}
-
-[data-id] {
+svg [data-id] {
 	fill: white;
 	stroke: black;
 	stroke-width: 1;
   cursor: pointer;
 }
 
-[data-id].selected {
+svg [data-id].selected {
   cursor: default;
   fill: black;
 }
 
-[data-id].disabled {
+svg [data-id].disabled {
   cursor: default;
   fill: gray;
-}
-
-button {
-  background-color: #333;
-  border: none;
-  color: white;
-  padding: .5rem 1rem;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 1.2rem;
-}
-
-button:not(:disabled):hover {
-  background-color: #111;
-}
-
-button:disabled {
-  opacity: .5;
-  background-color: #555;
-}
-
-button:not(:disabled):focus {
-  outline: .1rem dotted black;
-  outline-offset: .1rem;
 }

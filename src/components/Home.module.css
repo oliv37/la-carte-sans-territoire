@@ -1,0 +1,10 @@
+.container {
+    margin: 0;
+    padding: 0;
+}
+  
+.item {
+    padding: 3rem 1rem;
+    display: block;
+    border-bottom: .1rem solid gray;
+}
