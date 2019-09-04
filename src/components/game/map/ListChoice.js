@@ -1,7 +1,7 @@
 import React from 'react';
 import InputChoice from './InputChoice';
 
-function Choices({data, onChange, choiceIdSelected, idsValidated, getChoiceLabel}) {
+function ListChoice({data, onChange, choiceIdSelected, idsValidated, getChoiceLabel}) {
     return (
         <div className="choices-container">
             {data.map((item, index) => {
@@ -22,4 +22,4 @@ function Choices({data, onChange, choiceIdSelected, idsValidated, getChoiceLabel
     );
 }
 
-export default React.memo(Choices);
+export default React.memo(ListChoice);

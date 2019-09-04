@@ -1,9 +1,9 @@
 import React from 'react';
-import Choices from '../Choices';
-import SuccessMessage from '../SuccessMessage';
-import Button from '../Button';
-import {useMapGame} from '../../utils/hooks';
-import lazy from '../../hoc/lazy';
+import ListChoice from './ListChoice';
+import SuccessMessage from './SuccessMessage';
+import Button from '../../common/Button';
+import {useMapGame} from '../../../utils/hooks';
+import lazy from '../../../hoc/lazy';
 
 const defaultOptions = {
   getChoiceLabel: item => `${item.id} - ${item.label}`
@@ -30,7 +30,7 @@ function MapGame({id, data, MapComponent, options}) {
             <MapComponent/>
           </section>
           <aside>
-            <Choices 
+            <ListChoice 
               data={data} 
               onChange={setChoiceIdSelected}
               choiceIdSelected={choiceIdSelected}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 function SuccessMessage() {
-    return <span className="success">Bravo !</span>;
+    return <span className="success-message">Bravo !</span>;
 }
 
 export default SuccessMessage;

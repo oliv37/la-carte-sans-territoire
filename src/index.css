@@ -48,7 +48,7 @@ ul.home-container > li {
   flex-direction: column;
 }
 
-.loading-container, .error-container {
+.loading-container, .error-container, .not-found-container {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -141,7 +141,7 @@ footer button:disabled {
   cursor: default;
 }
 
-.success {
+.success-message {
   font-family: 'Livvic', sans-serif;
   font-size: 1.2rem;
   line-height: 2.6rem;
