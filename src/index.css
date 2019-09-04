@@ -22,6 +22,7 @@ body {
 }
 
 /* Map Game */
+/* TODO : à transformer en modules css */
 
 .map-game-container {
   height: 100%;

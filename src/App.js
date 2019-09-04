@@ -4,10 +4,20 @@ import Header from './components/Header';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import LazyMapGame from './components/game/map/MapGame';
+import {MAP} from './constants/type.constants';
 import appData from './appData';
 
 const isProd = process.env.NODE_ENV === 'production';
 const basename = isProd ? '/la-carte-sans-territoire' : undefined;
+
+function getLazyComponent(type) {
+  switch(type) {
+    case MAP:
+      return LazyMapGame;
+    default: 
+      return LazyMapGame;
+  }
+}
 
 function App() {
   return (
@@ -16,15 +26,23 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home}/>
         {
-          appData.map(({id, routePath, lazyDataModule}) => (
-            <Route 
-              key={id}
-              path={routePath} 
-              render={routeProps => (
-                <LazyMapGame {...routeProps} id={id} lazyDataModule={lazyDataModule}/>
-              )} 
-            />
-          ))
+          appData.map(({id, routePath, type, lazyDataModule}) => {
+            const LazyComponent = getLazyComponent(type);
+
+            return (
+              <Route 
+                key={id}
+                path={routePath} 
+                render={routeProps => (
+                  <LazyComponent 
+                    {...routeProps} 
+                    id={id} 
+                    lazyDataModule={lazyDataModule}
+                  />
+                )} 
+              />
+            );
+          })
         }
         <Route component={NotFound}/>
       </Switch>
