@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react';
-import localStorage from "./localStorage";
+import localStorage from "../../../utils/localStorage";
 
 function getIdsValidatedFromLocalStorage(id) {
   try {
@@ -90,8 +90,10 @@ export function useValidateClickCallback(
 export function useResetClickCallback(id, setIdsValidated) {
   return useCallback(
     function handleResetClick() {
-      setIdsValidated([]);
-      localStorage.removeItem(id);
+      if (window.confirm("Souhaitez-vous vraiment recommencer cette carte ?")) {
+        setIdsValidated([]);
+        localStorage.removeItem(id);
+      }
     }, [id, setIdsValidated]
   );
 }

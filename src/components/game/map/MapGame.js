@@ -3,7 +3,7 @@ import ListChoice from './ListChoice';
 import SuccessMessage from './SuccessMessage';
 import Button from '../../common/Button';
 import ResetButton from './ResetButton';
-import {useMapGame} from '../../../utils/hooks';
+import {useMapGame} from './mapHooks';
 import lazy from '../../../hoc/lazy';
 
 const defaultOptions = {
