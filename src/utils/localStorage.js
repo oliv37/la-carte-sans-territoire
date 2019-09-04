@@ -1,4 +1,4 @@
-function safeLocalStorageCall(methodName) {
+function safeLocalStorageMethod(methodName) {
     return function(...args) {
         try {
             return window.localStorage[methodName].apply(window.localStorage, args);
@@ -6,10 +6,10 @@ function safeLocalStorageCall(methodName) {
     };
 }
 
-const methodNames = ["setItem", "getItem"];
+const methodNames = ["setItem", "getItem", "removeItem"];
 
 const localStorage = methodNames.reduce((acc, methodName) => {
-    acc[methodName] = safeLocalStorageCall(methodName);
+    acc[methodName] = safeLocalStorageMethod(methodName);
     return acc;
 }, {});
 

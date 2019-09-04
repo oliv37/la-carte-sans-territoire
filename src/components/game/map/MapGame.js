@@ -2,6 +2,7 @@ import React from 'react';
 import ListChoice from './ListChoice';
 import SuccessMessage from './SuccessMessage';
 import Button from '../../common/Button';
+import ResetButton from './ResetButton';
 import {useMapGame} from '../../../utils/hooks';
 import lazy from '../../../hoc/lazy';
 
@@ -17,7 +18,8 @@ function MapGame({id, data, MapComponent, options}) {
     mapIdSelected,
     idsValidated,
     setChoiceIdSelected,
-    handleValidateClick
+    handleValidateClick,
+    handleResetClick
   } = useMapGame(id);
 
   const finished = idsValidated.length === data.length;
@@ -47,6 +49,7 @@ function MapGame({id, data, MapComponent, options}) {
               children="Valider"
             />
           )}
+          {idsValidated.length > 0 && <ResetButton onClick={handleResetClick}/>}
         </footer>
     </div>
   );

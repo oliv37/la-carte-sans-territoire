@@ -2,9 +2,8 @@ import {useState, useEffect, useCallback} from 'react';
 import localStorage from "./localStorage";
 
 function getIdsValidatedFromLocalStorage(id) {
-  const itemValue = localStorage.getItem(id);
-
-    try {
+  try {
+      const itemValue = localStorage.getItem(id);
       const idsValidated = itemValue && JSON.parse(itemValue);
       if (Array.isArray(idsValidated)) {
         return idsValidated;
@@ -59,9 +58,14 @@ export function useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapI
   useEffect(() => {
       setChoiceIdSelected("");
       setMapIdSelected("");
-      if (Array.isArray(idsValidated)) {
+
+      if (Array.isArray(idsValidated) && idsValidated.length) {
         idsValidated.forEach(
           id => document.querySelector(`[data-id="${id}"]`).classList.add('disabled')
+        );
+      } else {
+        Array.from(document.querySelectorAll('[data-id]')).forEach(
+          el => el.classList.remove('disabled')
         );
       }
 
@@ -83,6 +87,15 @@ export function useValidateClickCallback(
     );
 }
 
+export function useResetClickCallback(id, setIdsValidated) {
+  return useCallback(
+    function handleResetClick() {
+      setIdsValidated([]);
+      localStorage.removeItem(id);
+    }, [id, setIdsValidated]
+  );
+}
+
 export function useMapGame(id) {
   const [choiceIdSelected, setChoiceIdSelected] = useState("");
   const [mapIdSelected, setMapIdSelected] = useState("");
@@ -96,12 +109,14 @@ export function useMapGame(id) {
   const handleValidateClick = useValidateClickCallback(
     id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated
   );
+  const handleResetClick = useResetClickCallback(id, setIdsValidated);
 
   return {
     choiceIdSelected,
     mapIdSelected,
     idsValidated,
     setChoiceIdSelected,
-    handleValidateClick
+    handleValidateClick,
+    handleResetClick
   };
 }
