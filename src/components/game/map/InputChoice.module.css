@@ -1,0 +1,37 @@
+.container {
+    position: relative;
+}
+
+.input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 100%;
+}
+  
+.label {
+    display: block;
+    border: .1rem solid black;
+    text-align: center;
+    padding: .2rem;
+    border-radius: .6rem;
+    cursor: pointer;
+    margin: .5rem .3rem;
+    user-select: none;
+}
+  
+.input:checked ~ .label {
+    background-color: black;
+    color: white;
+}
+  
+.input:disabled ~ .label {
+    background-color: gray;
+    color: white;
+    cursor: default;
+}
+  
+.input:focus ~ .label {
+    outline: .1rem dotted black;
+    outline-offset: .1rem;
+}

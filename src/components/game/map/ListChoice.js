@@ -1,9 +1,10 @@
 import React from 'react';
 import InputChoice from './InputChoice';
+import styles from './ListChoice.module.css';
 
 function ListChoice({data, onChange, choiceIdSelected, idsValidated, getChoiceLabel}) {
     return (
-        <div className="choices-container">
+        <div className={styles.container}>
             {data.map((item, index) => {
                 const {id} = item;
 

@@ -5,12 +5,13 @@ import Button from '../../common/Button';
 import ResetButton from './ResetButton';
 import {useMapGame} from './mapHooks';
 import lazy from '../../../hoc/lazy';
+import styles from './MapGame.module.css';
 
 const defaultOptions = {
   getChoiceLabel: item => `${item.id} - ${item.label}`
 };
 
-function MapGame({id, data, MapComponent, options}) {
+function MapGame({id, title, data, MapComponent, options}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
 
   const {
@@ -26,12 +27,13 @@ function MapGame({id, data, MapComponent, options}) {
   const canValidate = mapIdSelected && choiceIdSelected;
 
   return (
-    <div className="map-game-container">
-        <main>
-          <section>
+    <div className={styles.container}>
+        <main className={styles.main}>
+          <section className={styles.section}>
             <MapComponent/>
+            <p className={styles.mapTitle}>{title}</p>
           </section>
-          <aside>
+          <aside className={styles.aside}>
             <ListChoice 
               data={data} 
               onChange={setChoiceIdSelected}
@@ -41,7 +43,7 @@ function MapGame({id, data, MapComponent, options}) {
             />
           </aside>
         </main>
-        <footer>
+        <footer className={styles.footer}>
           {finished ? <SuccessMessage/> : (
             <Button 
               onClick={handleValidateClick} 

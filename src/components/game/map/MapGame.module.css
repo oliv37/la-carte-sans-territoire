@@ -1,0 +1,63 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex-grow: 1;
+    display: flex;
+    border-bottom: .1rem solid gray;
+}
+
+.section {
+    flex-grow: 1;
+    border-right: .1rem solid gray;
+    position: relative;
+}
+
+.mapTitle {
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    margin-bottom: .2rem;
+    font-style: italic;
+}
+
+.section > svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 1.5rem);
+}
+
+.section > svg [data-id] {
+	fill: white;
+	stroke: black;
+	stroke-width: 1;
+    cursor: pointer;
+}
+
+.section > svg [data-id]:global(.selected) {
+    cursor: default;
+    fill: black;
+}
+
+.section > svg [data-id]:global(.disabled) {
+    cursor: default;
+    fill: gray;
+}
+
+.aside {
+    flex-basis: 18rem;
+    position: relative;
+}
+
+.footer {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}

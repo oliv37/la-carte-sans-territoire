@@ -26,7 +26,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home}/>
         {
-          appData.map(({id, routePath, type, lazyDataModule}) => {
+          appData.map(({id, routePath, type, title, lazyDataModule}) => {
             const LazyComponent = getLazyComponent(type);
 
             return (
@@ -37,6 +37,7 @@ function App() {
                   <LazyComponent 
                     {...routeProps} 
                     id={id} 
+                    title={title}
                     lazyDataModule={lazyDataModule}
                   />
                 )} 
