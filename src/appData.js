@@ -25,6 +25,13 @@ const usState= createMapData(
     "Carte des états des États-Unis"
 );
 
-const appData = [ frDpt, usState ];
+const parisArr = createMapData(
+    "parisArr",
+    "/paris-district",
+    "Arrondissements de Paris",
+    "Carte des arrondissements de Paris"
+);
+
+const appData = [ frDpt, usState, parisArr ];
 
 export default appData;
