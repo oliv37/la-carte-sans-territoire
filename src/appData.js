@@ -32,6 +32,6 @@ const parisArr = createMapData(
     "Carte des arrondissements de Paris"
 );
 
-const appData = [ frDpt, usState, parisArr ];
+const appData = [frDpt, usState, parisArr];
 
 export default appData;
