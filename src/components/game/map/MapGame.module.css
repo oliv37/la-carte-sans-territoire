@@ -24,6 +24,8 @@
     margin-top: 0;
     font-size: 1rem;
     font-style: italic;
+    display: flex;
+    align-items: center;
 }
 
 .section > svg {
@@ -31,7 +33,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 1.5rem);
+    height: calc(100% - 1.6rem);
 }
 
 .section > svg [data-id] {

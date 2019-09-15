@@ -32,7 +32,10 @@ function MapGame({id, title, data, MapComponent, options}) {
         <main className={styles.main}>
           <section className={styles.section}>
             <MapComponent/>
-            <p className={styles.mapTitle}>{title}</p>
+            <p className={styles.mapTitle}>
+              {title}
+              {idsValidated.length > 0 && <ResetButton onClick={handleResetClick}/>}
+            </p>
           </section>
           <aside className={styles.aside}>
             <ListChoice 
@@ -53,7 +56,6 @@ function MapGame({id, title, data, MapComponent, options}) {
               children="Valider"
             />
           )}
-          {idsValidated.length > 0 && <ResetButton onClick={handleResetClick}/>}
         </footer>
     </div>
   );
