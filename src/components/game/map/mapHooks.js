@@ -1,5 +1,8 @@
 import {useState, useEffect, useCallback} from 'react';
 import localStorage from "../../../utils/localStorage";
+import {highlight} from "../../../constants/className";
+
+const highlightTimeout = 1500;
 
 function getIdsValidatedFromLocalStorage(id) {
   try {
@@ -13,21 +16,23 @@ function getIdsValidatedFromLocalStorage(id) {
     return [];
 }
 
-export function useInitMapHandlersEffect(id, setMapIdSelected) {
+export function useInitMapHandlersEffect(id, setMapIdSelected, setIdHighlighted) {
     useEffect(() => {
       const areas = document.querySelectorAll("[data-id]");
       Array.from(areas).forEach(el => {
         const mapId = el.dataset.id;
         
         el.addEventListener('click', e => {
+          
           if (e.target.classList.contains('disabled')) {
+            setIdHighlighted(e.target.dataset.id);
             return;
           }
           
           setMapIdSelected(mapId);
         });
       });
-    }, [id, setMapIdSelected]);
+    }, [id, setMapIdSelected, setIdHighlighted]);
 }
 
 export function useInitIdsSelectedEffect(id, setChoiceIdSelected, setMapIdSelected) {
@@ -71,6 +76,22 @@ export function useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapI
 
   }, [idsValidated, setChoiceIdSelected, setMapIdSelected]);
 }
+
+export function useIdHightlightedEffect(idHightlighted, setIdHighlighted) {
+  useEffect(() => {
+    if (idHightlighted) {
+      const el = document.querySelector(`[data-id='${idHightlighted}'`);
+      el.classList.add(highlight);
+
+      const timeoutId = setTimeout(() => setIdHighlighted(""), highlightTimeout);
+
+      return () => {
+        clearTimeout(timeoutId);
+        el.classList.remove(highlight);
+      };
+    }
+  }, [idHightlighted, setIdHighlighted]);
+}
   
 export function useValidateClickCallback(
   id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated
@@ -101,12 +122,14 @@ export function useResetClickCallback(id, setIdsValidated) {
 export function useMapGame(id) {
   const [choiceIdSelected, setChoiceIdSelected] = useState("");
   const [mapIdSelected, setMapIdSelected] = useState("");
+  const [idHighlighted, setIdHighlighted] = useState("");
   const [idsValidated, setIdsValidated] = useState(() => getIdsValidatedFromLocalStorage(id));
 
-  useInitMapHandlersEffect(id, setMapIdSelected);
+  useInitMapHandlersEffect(id, setMapIdSelected, setIdHighlighted);
   useInitIdsSelectedEffect(id, setChoiceIdSelected, setMapIdSelected);
   useInitIdsValidatedEffect(id, setIdsValidated);
   useMapIdSelectedEffect(mapIdSelected);
+  useIdHightlightedEffect(idHighlighted, setIdHighlighted);
   useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapIdSelected);
   const handleValidateClick = useValidateClickCallback(
     id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated
@@ -116,6 +139,7 @@ export function useMapGame(id) {
   return {
     choiceIdSelected,
     mapIdSelected,
+    idHighlighted,
     idsValidated,
     setChoiceIdSelected,
     handleValidateClick,

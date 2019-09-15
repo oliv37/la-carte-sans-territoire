@@ -30,6 +30,10 @@
     color: white;
     cursor: default;
 }
+
+.input:disabled ~ .label:global(.highlight) {
+    background-color: salmon;
+}
   
 .input:focus ~ .label {
     outline: .1rem dotted black;

@@ -21,6 +21,8 @@
     bottom: 0;
     left: 1rem;
     margin-bottom: .2rem;
+    margin-top: 0;
+    font-size: 1rem;
     font-style: italic;
 }
 
@@ -47,6 +49,10 @@
 .section > svg [data-id]:global(.disabled) {
     cursor: default;
     fill: gray;
+}
+
+.section > svg [data-id]:global(.disabled.highlight) {
+    fill: lightsalmon;
 }
 
 .aside {

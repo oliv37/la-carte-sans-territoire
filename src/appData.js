@@ -1,4 +1,4 @@
-import {MAP} from "./constants/type.constants";
+import {MAP} from "./constants/gameType";
 
 function createMapData(id, routePath, title, description) {
     return {

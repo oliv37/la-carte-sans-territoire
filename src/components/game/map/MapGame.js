@@ -18,6 +18,7 @@ function MapGame({id, title, data, MapComponent, options}) {
     choiceIdSelected,
     mapIdSelected,
     idsValidated,
+    idHighlighted,
     setChoiceIdSelected,
     handleValidateClick,
     handleResetClick
@@ -38,6 +39,7 @@ function MapGame({id, title, data, MapComponent, options}) {
               data={data} 
               onChange={setChoiceIdSelected}
               choiceIdSelected={choiceIdSelected}
+              idHighlighted={idHighlighted}
               idsValidated={idsValidated}
               getChoiceLabel={getChoiceLabel}
             />

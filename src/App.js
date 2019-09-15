@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import LazyMapGame from './components/game/map/MapGame';
-import {MAP} from './constants/type.constants';
+import {MAP} from './constants/gameType';
 import appData from './appData';
 
 const isProd = process.env.NODE_ENV === 'production';
