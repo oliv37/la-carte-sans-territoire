@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e286e05fa22c997d05778dd6140c6985",
+    "revision": "06564a798c8cc6bead9d3ab63955f8f0",
     "url": "/la-carte-sans-territoire/index.html"
   },
   {
