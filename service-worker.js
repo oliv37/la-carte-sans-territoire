@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/la-carte-sans-territoire/precache-manifest.267126cce476b592becdbb426bcd1fe3.js"
+  "/la-carte-sans-territoire/precache-manifest.556fc432dad5857a9bf247036c0d886e.js"
 );
 
 self.addEventListener('message', (event) => {
