@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useCallback} from 'react';
 import classNames from 'classnames';
-import {highlight} from '../../../constants/className';
 import styles from './InputChoice.module.css';
 
 function InputChoice({
@@ -13,7 +12,7 @@ function InputChoice({
     onChange
 }) {
     const labelRef = useRef(null);
-    const labelClassName = classNames(styles.label, {[highlight]: highlighted});
+    const labelClassName = classNames(styles.label, {[styles.highlight]: highlighted});
     const memoizedOnChange = useCallback(() => onChange(id), [onChange, id]);
 
     useEffect(() => {

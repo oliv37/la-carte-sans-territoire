@@ -31,7 +31,7 @@
     cursor: default;
 }
 
-.input:disabled ~ .label:global(.highlight) {
+.input:disabled ~ .label.highlight {
     background-color: salmon;
 }
   

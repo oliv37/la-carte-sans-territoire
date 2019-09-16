@@ -1,6 +1,6 @@
 import {useState, useEffect, useCallback} from 'react';
 import localStorage from "../../../utils/localStorage";
-import {highlight} from "../../../constants/className";
+import styles from './MapGame.module.css';
 
 const highlightTimeout = 1500;
 
@@ -24,7 +24,7 @@ export function useInitMapHandlersEffect(id, setMapIdSelected, setIdHighlighted)
         
         el.addEventListener('click', e => {
           
-          if (e.target.classList.contains('disabled')) {
+          if (e.target.classList.contains(styles.disabled)) {
             setIdHighlighted(e.target.dataset.id);
             return;
           }
@@ -52,9 +52,9 @@ export function useMapIdSelectedEffect(mapIdSelected) {
     useEffect(() => {
       if (mapIdSelected) {
         const el = document.querySelector(`[data-id="${mapIdSelected}"`);
-        el.classList.add('selected');
+        el.classList.add(styles.selected);
   
-        return () => el && el.classList.remove('selected');
+        return () => el && el.classList.remove(styles.selected);
       }
     }, [mapIdSelected]);
 }
@@ -66,11 +66,11 @@ export function useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapI
 
       if (Array.isArray(idsValidated) && idsValidated.length) {
         idsValidated.forEach(
-          id => document.querySelector(`[data-id="${id}"]`).classList.add('disabled')
+          id => document.querySelector(`[data-id="${id}"]`).classList.add(styles.disabled)
         );
       } else {
         Array.from(document.querySelectorAll('[data-id]')).forEach(
-          el => el.classList.remove('disabled')
+          el => el.classList.remove(styles.disabled)
         );
       }
 
@@ -81,13 +81,13 @@ export function useIdHightlightedEffect(idHightlighted, setIdHighlighted) {
   useEffect(() => {
     if (idHightlighted) {
       const el = document.querySelector(`[data-id='${idHightlighted}'`);
-      el.classList.add(highlight);
+      el.classList.add(styles.highlight);
 
       const timeoutId = setTimeout(() => setIdHighlighted(""), highlightTimeout);
 
       return () => {
         clearTimeout(timeoutId);
-        el.classList.remove(highlight);
+        el.classList.remove(styles.highlight);
       };
     }
   }, [idHightlighted, setIdHighlighted]);
