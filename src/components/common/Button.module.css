@@ -10,7 +10,7 @@
     cursor: pointer;
 }
 
-.button:not(:disabled):hover {
+.button:not(:disabled):not(.error):hover {
     background-color: #111;
 }
   
@@ -26,5 +26,5 @@
 }
 
 .button.error {
-    background-color: DarkRed !important;
+    background-color: DarkRed;
 }
