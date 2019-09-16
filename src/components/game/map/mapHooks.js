@@ -1,8 +1,9 @@
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, useRef} from 'react';
 import localStorage from "../../../utils/localStorage";
 import styles from './MapGame.module.css';
 
 const highlightTimeout = 1500;
+const errorTimeout = 1500;
 
 function getIdsValidatedFromLocalStorage(id) {
   try {
@@ -94,17 +95,31 @@ export function useIdHightlightedEffect(idHightlighted, setIdHighlighted) {
 }
   
 export function useValidateClickCallback(
-  id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated
+  id, 
+  mapIdSelected, 
+  choiceIdSelected, 
+  idsValidated, 
+  setIdsValidated,
+  setHasError
 ) {
+    const timeoutIdRef = useRef(null);
+
     return useCallback(
       function handleValidateClick() {
-        if (mapIdSelected && mapIdSelected === choiceIdSelected) {
+        const isValid = mapIdSelected && mapIdSelected === choiceIdSelected;
+
+        clearTimeout(timeoutIdRef.current);
+        setHasError(!isValid);
+        
+        if (isValid) {
           const newIdsValidated = [...idsValidated, choiceIdSelected];
           
           setIdsValidated(newIdsValidated);
           localStorage.setItem(id, JSON.stringify(newIdsValidated));
+        } else {
+          timeoutIdRef.current = setTimeout(() => setHasError(false), errorTimeout);
         }
-      }, [id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated]
+      }, [id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated, setHasError]
     );
 }
 
@@ -124,6 +139,7 @@ export function useMapGame(id) {
   const [mapIdSelected, setMapIdSelected] = useState("");
   const [idHighlighted, setIdHighlighted] = useState("");
   const [idsValidated, setIdsValidated] = useState(() => getIdsValidatedFromLocalStorage(id));
+  const [hasError, setHasError] = useState(false);
 
   useInitMapHandlersEffect(id, setMapIdSelected, setIdHighlighted);
   useInitIdsSelectedEffect(id, setChoiceIdSelected, setMapIdSelected);
@@ -132,7 +148,7 @@ export function useMapGame(id) {
   useIdHightlightedEffect(idHighlighted, setIdHighlighted);
   useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapIdSelected);
   const handleValidateClick = useValidateClickCallback(
-    id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated
+    id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated, setHasError
   );
   const handleResetClick = useResetClickCallback(id, setIdsValidated);
 
@@ -141,6 +157,7 @@ export function useMapGame(id) {
     mapIdSelected,
     idHighlighted,
     idsValidated,
+    hasError,
     setChoiceIdSelected,
     handleValidateClick,
     handleResetClick

@@ -24,3 +24,7 @@
     outline: .1rem dotted black;
     outline-offset: .1rem;
 }
+
+.button.error {
+    background-color: DarkRed !important;
+}

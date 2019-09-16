@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import ListChoice from './ListChoice';
 import SuccessMessage from './SuccessMessage';
 import Button from '../../common/Button';
@@ -6,6 +7,7 @@ import ResetButton from './ResetButton';
 import {useMapGame} from './mapHooks';
 import lazy from '../../../hoc/lazy';
 import styles from './MapGame.module.css';
+import btnStyles from '../../common/Button.module.css';
 
 const defaultOptions = {
   getChoiceLabel: item => `${item.id} - ${item.label}`
@@ -19,6 +21,7 @@ function MapGame({id, title, data, MapComponent, options}) {
     mapIdSelected,
     idsValidated,
     idHighlighted,
+    hasError,
     setChoiceIdSelected,
     handleValidateClick,
     handleResetClick
@@ -53,6 +56,7 @@ function MapGame({id, title, data, MapComponent, options}) {
             <Button 
               onClick={handleValidateClick} 
               disabled={!canValidate}
+              className={classNames({[btnStyles.error]: hasError})}
               children="Valider"
             />
           )}
