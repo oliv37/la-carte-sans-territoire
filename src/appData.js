@@ -18,6 +18,13 @@ const frDpt = createMapData(
     "Carte des départements français"
 );
 
+const frReg = createMapData(
+    "frReg",
+    "/french-area",
+    "Régions de France",
+    "Carte des régions de France"
+);
+
 const usState= createMapData(
     "usState",
     "/us-state",
@@ -32,6 +39,6 @@ const parisArr = createMapData(
     "Carte des arrondissements de Paris"
 );
 
-const appData = [frDpt, usState, parisArr];
+const appData = [frDpt, frReg, usState, parisArr];
 
 export default appData;
