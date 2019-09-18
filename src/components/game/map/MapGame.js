@@ -37,7 +37,9 @@ function MapGame({id, title, data, MapComponent, options}) {
             <MapComponent/>
             <p className={styles.mapTitle}>
               {title}
-              {idsValidated.length > 0 && <ResetButton onClick={handleResetClick}/>}
+              {idsValidated.length > 0 && 
+                <ResetButton blink={finished} onClick={handleResetClick}/>
+              }
             </p>
           </section>
           <aside className={styles.aside}>

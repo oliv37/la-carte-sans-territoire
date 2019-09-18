@@ -11,3 +11,17 @@
     color: black;
 }
 
+.resetButton.blink {
+    animation: blink 2s step-end infinite;
+}
+
+@keyframes blink { 
+    0% { 
+        background-color: white;
+        color: black;
+    }
+    50% {
+        background-color: black;
+        color: white;
+    }
+}
