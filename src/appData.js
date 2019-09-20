@@ -39,6 +39,13 @@ const parisArr = createMapData(
     "Carte des arrondissements de Paris"
 );
 
-const appData = [frDpt, frReg, usState, parisArr];
+const africa = createMapData(
+    "africa",
+    "/afrique",
+    "Afrique",
+    "Carte de l'Afrique"
+);
+
+const appData = [frDpt, frReg, usState, parisArr, africa];
 
 export default appData;

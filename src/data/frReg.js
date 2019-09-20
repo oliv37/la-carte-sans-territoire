@@ -1,7 +1,7 @@
 export {ReactComponent as MapComponent} from "../res/frReg.svg";
 
 export const options = {
-    getChoiceLabel: ({label}) => label
+    getChoiceLabel: item => item.label
 };
 
 export const data = [
