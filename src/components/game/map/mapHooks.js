@@ -23,10 +23,10 @@ export function useInitMapHandlersEffect(id, setMapIdSelected, setIdHighlighted)
       Array.from(areas).forEach(el => {
         const mapId = el.dataset.id;
         
-        el.addEventListener('click', e => {
+        el.addEventListener('click', () => {
           
-          if (e.target.classList.contains(styles.disabled)) {
-            setIdHighlighted(e.target.dataset.id);
+          if (el.classList.contains(styles.disabled)) {
+            setIdHighlighted(mapId);
             return;
           }
           
