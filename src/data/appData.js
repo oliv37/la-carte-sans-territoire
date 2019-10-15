@@ -1,4 +1,4 @@
-import {MAP} from "./constants/gameType";
+import {MAP} from "../constants/gameType";
 
 function createMapData(id, routePath, title, description) {
     return {
@@ -7,41 +7,42 @@ function createMapData(id, routePath, title, description) {
         title,
         description,
         type: MAP,
-        lazyDataModule: () => import(`./data/${id}.js`),
+        lazyDataModule: () => import(`./map/${id}.js`),
+        imageModule: import(`../res/${id}.svg`)
     };
 }
 
 const frDpt = createMapData(
     "frDpt",
-    "/french-district",
+    "/france-departement",
     "Départements français",
     "Carte des départements français"
 );
 
 const frReg = createMapData(
     "frReg",
-    "/french-area",
-    "Régions de France",
-    "Carte des régions de France"
+    "/france-region",
+    "Régions françaises",
+    "Carte des régions françaises"
 );
 
 const usState= createMapData(
     "usState",
-    "/us-state",
+    "/usa-etats",
     "États des États-Unis",
     "Carte des états des États-Unis"
 );
 
 const parisArr = createMapData(
     "parisArr",
-    "/paris-district",
+    "/paris-arrondissement",
     "Arrondissements de Paris",
     "Carte des arrondissements de Paris"
 );
 
 const africa = createMapData(
     "africa",
-    "/afrique",
+    "/afrique-continent",
     "Afrique",
     "Carte de l'Afrique"
 );

@@ -5,7 +5,7 @@ import Home from './components/Home';
 import NotFound from './components/NotFound';
 import LazyMapGame from './components/game/map/MapGame';
 import {MAP} from './constants/gameType';
-import appData from './appData';
+import appData from './data/appData';
 
 const isProd = process.env.NODE_ENV === 'production';
 const basename = isProd ? '/la-carte-sans-territoire' : undefined;

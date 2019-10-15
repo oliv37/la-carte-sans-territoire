@@ -4,7 +4,10 @@
 }
   
 .item {
-    padding: 3rem 1rem;
-    display: block;
-    border-bottom: .1rem solid gray;
+    box-sizing: border-box;
+    display: inline-block;
+    width: calc(50% - .4rem);
+    margin: .2rem;
+    border: .1rem solid black;
+    border-radius: 1rem;
 }

@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import appData from '../appData';
+import appData from '../data/appData';
 import styles from './Home.module.css';
+import HomeLink from './HomeLink';
 
 function Home() {
     return (
         <ul className={styles.container}>
         {
-            appData.map(({id, routePath, description}) => (
+            appData.map(({id, routePath, description, imageModule}) => (
                 <li key={id} className={styles.item}>
-                    <Link to={routePath}>{description}</Link>    
+                    <HomeLink to={routePath} text={description} imageModule={imageModule}/>
                 </li>
             ))
         }
