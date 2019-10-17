@@ -5,6 +5,7 @@ import styles from './HomeLink.module.css';
 function HomeLink({to, text, imageModule}) {
     const [imageUrl, setImageUrl] = useState(undefined);
     
+    // TODO: ne plus charger de module et mettre une simple image
     useEffect(() => {
         imageModule.then(({default: imageUrl}) => setImageUrl(imageUrl));
     }, [imageModule]);

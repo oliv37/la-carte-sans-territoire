@@ -8,7 +8,7 @@ function createMapData(id, routePath, title, description) {
         description,
         type: MAP,
         lazyDataModule: () => import(`./map/${id}.js`),
-        imageModule: import(`../res/${id}.svg`)
+        imageModule: import(`../res/${id}.svg`) // TODO : mettre une simple url pour l'image
     };
 }
 
