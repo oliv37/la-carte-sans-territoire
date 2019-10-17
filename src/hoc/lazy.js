@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
-const lazy = mapDataModuleToProps => Component => {
+const defaultMapDataModuleToProps = dataModule => ({...dataModule});
+
+const lazy = (mapDataModuleToProps = defaultMapDataModuleToProps) => Component => {
     function LazyComponent({lazyDataModule, ...otherProps}) {
         const [dataModule, setDataModule] = useState(undefined);
 
