@@ -36,7 +36,7 @@ function App() {
                 render={routeProps => (
                   <LazyComponent 
                     {...routeProps} 
-                    id={id} 
+                    id={id}
                     title={title}
                     lazyDataModule={lazyDataModule}
                   />

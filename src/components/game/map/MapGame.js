@@ -22,6 +22,7 @@ function MapGame({id, title, data, MapComponent, options}) {
     idsValidated,
     idHighlighted,
     hasError,
+    setMapIdSelected,
     setChoiceIdSelected,
     handleValidateClick,
     handleResetClick
@@ -30,10 +31,36 @@ function MapGame({id, title, data, MapComponent, options}) {
   const finished = idsValidated.length === data.length;
   const canValidate = mapIdSelected && choiceIdSelected;
 
+  function handleMapIdChange(e) {
+    setMapIdSelected(e.target.value);
+  }
+
+  // TODO : label/input (map) à externaliser
+  // TODO : Ordre aléatoire des radio buttons de la map
+  // TODO : Titre + bouton à mettre dans le header (utiliser dispatchEvent)
+  // TODO : Gestion du focus (css)
+
   return (
-    <div className={styles.container}>
+    <form className={styles.container} onSubmit={handleValidateClick}>
         <main className={styles.main}>
           <section className={styles.section}>
+            {data.map(item => {
+              const id = `item-${item.id}`;
+              return (
+                <label id={id} key={item.id}>
+                  <input 
+                    htmlFor={id}
+                    type="radio" 
+                    name="mapChoice"
+                    value={item.id}
+                    onChange={handleMapIdChange}
+                    checked={item.id === mapIdSelected}
+                    disabled={idsValidated.indexOf(item.id) !== -1}
+                  />
+                </label>  
+              );
+            })}
+
             <MapComponent/>
             <p className={styles.mapTitle}>
               {title}
@@ -56,14 +83,14 @@ function MapGame({id, title, data, MapComponent, options}) {
         <footer className={styles.footer}>
           {finished ? <SuccessMessage/> : (
             <Button 
-              onClick={handleValidateClick} 
+              type="submit"
               disabled={!canValidate}
               className={classNames({[btnStyles.error]: hasError})}
               children="Valider"
             />
           )}
         </footer>
-    </div>
+    </form>
   );
 }
 

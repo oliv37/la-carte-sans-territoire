@@ -12,7 +12,7 @@ function ResetButton({className, blink = false, ...props}) {
     );
     
     return (
-        <button title="Recommencer" {...props} className={btnClassName}>
+        <button title="Recommencer" {...props} className={btnClassName} type="button">
             {'\u27F3'}
         </button>
     );
