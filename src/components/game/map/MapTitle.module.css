@@ -1,0 +1,11 @@
+.mapTitle {
+    position: absolute;
+    top: 0;
+    margin-top: .3rem;
+    font-size: 1rem;
+    font-style: italic;
+    display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+}

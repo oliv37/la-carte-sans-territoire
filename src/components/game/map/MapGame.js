@@ -1,13 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
 import ListChoice from './ListChoice';
-import SuccessMessage from './SuccessMessage';
-import Button from '../../common/Button';
-import ResetButton from './ResetButton';
+import MapTitle from './MapTitle';
 import {useMapGame} from './mapHooks';
 import lazy from '../../../hoc/lazy';
 import styles from './MapGame.module.css';
-import btnStyles from '../../common/Button.module.css';
+import MapChoice from './MapChoice';
+import MapFooter from './MapFooter';
 
 const defaultOptions = {
   getChoiceLabel: item => `${item.id} - ${item.label}`
@@ -31,41 +29,24 @@ function MapGame({id, title, data, MapComponent, options}) {
   const finished = idsValidated.length === data.length;
   const canValidate = mapIdSelected && choiceIdSelected;
 
-  function handleMapIdChange(e) {
-    setMapIdSelected(e.target.value);
-  }
-
-  // TODO : label/input (map) à externaliser
-  // TODO : Ordre aléatoire des radio buttons de la map
   // TODO : Gestion du focus (css)
 
   return (
     <form className={styles.container} onSubmit={handleValidateClick}>
         <main className={styles.main}>
           <section className={styles.section}>
-		  	<p className={styles.mapTitle}>
-              {title}
-              {idsValidated.length > 0 && 
-                <ResetButton blink={finished} onClick={handleResetClick}/>
-              }
-            </p>
-			
-            {data.map(item => {
-              const id = `item-${item.id}`;
-              return (
-                <label id={id} key={item.id}>
-                  <input 
-                    htmlFor={id}
-                    type="radio" 
-                    name="mapChoice"
-                    value={item.id}
-                    onChange={handleMapIdChange}
-                    checked={item.id === mapIdSelected}
-                    disabled={idsValidated.indexOf(item.id) !== -1}
-                  />
-                </label>  
-              );
-            })}
+			<MapTitle 
+				title={title}
+				showResetButton={idsValidated.length > 0}
+				blinkResetButton={finished}
+				onClickResetButton={handleResetClick}
+			/>
+			<MapChoice
+				data={data}
+				onChange={setMapIdSelected}
+				mapIdSelected={mapIdSelected}
+				idsValidated={idsValidated}
+			/>
             <MapComponent/>
           </section>
           <aside className={styles.aside}>
@@ -79,16 +60,11 @@ function MapGame({id, title, data, MapComponent, options}) {
             />
           </aside>
         </main>
-        <footer className={styles.footer}>
-          {finished ? <SuccessMessage/> : (
-            <Button 
-              type="submit"
-              disabled={!canValidate}
-              className={classNames({[btnStyles.error]: hasError})}
-              children="Valider"
-            />
-          )}
-        </footer>
+		<MapFooter
+			success={finished}
+			error={hasError}
+			btnDisabled={!canValidate}
+		/>
     </form>
   );
 }
