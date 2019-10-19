@@ -5,3 +5,10 @@
     justify-content: center;
     position: relative;
 }
+
+/* TODO : mobile first */
+@media screen and (max-width: 38em) {
+	.mapFooter {
+		padding: .3rem;
+	}
+}

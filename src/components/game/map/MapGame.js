@@ -38,7 +38,7 @@ function MapGame({id, title, data, MapComponent, options}) {
 			<MapTitle 
 				title={title}
 				showResetButton={idsValidated.length > 0}
-				blinkResetButton={finished}
+				animateResetButton={finished}
 				onClickResetButton={handleResetClick}
 			/>
 			<MapChoice

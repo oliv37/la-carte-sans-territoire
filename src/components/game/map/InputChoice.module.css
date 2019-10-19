@@ -39,3 +39,19 @@
     outline: .1rem dotted black;
     outline-offset: .1rem;
 }
+
+/* TODO : mobile first */
+@media screen and (max-width: 38em) {
+	.container {
+		flex-shrink: 0;
+	}
+
+	.input {
+		width: 100%;
+		height: 0;
+	}
+
+	.label {
+		padding: .4rem;
+	}
+}

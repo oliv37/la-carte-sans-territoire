@@ -49,3 +49,14 @@
     flex-basis: 18rem;
     position: relative;
 }
+
+/* TODO : mobile first */
+@media screen and (max-width: 38em) {
+	.main {
+		flex-direction: column;
+	}
+
+	.aside {
+		flex-basis: auto;
+	}
+}

@@ -2,12 +2,12 @@ import React from "react";
 import ResetButton from "./ResetButton";
 import styles from "./MapTitle.module.css";
 
-function MapTitle({title, showResetButton, onClickResetButton, blinkResetButton}) {
+function MapTitle({title, showResetButton, onClickResetButton, animateResetButton}) {
 	return (
 		<p className={styles.mapTitle}>
         	{title}
             {showResetButton &&
-				<ResetButton blink={blinkResetButton} onClick={onClickResetButton}/>
+				<ResetButton animate={animateResetButton} onClick={onClickResetButton}/>
             }
         </p>
 	);

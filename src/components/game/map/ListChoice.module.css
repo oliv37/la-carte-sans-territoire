@@ -6,3 +6,18 @@
     height: 100%;
     overflow-y: scroll;
 }
+
+/* TODO : mobile first */
+@media screen and (max-width: 38em) {
+	.container {
+		border-top: .1rem solid gray;
+		position: static;
+		width: 100%;
+		height: auto;
+		overflow-x: scroll;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		padding: .2rem 0;
+	}
+}

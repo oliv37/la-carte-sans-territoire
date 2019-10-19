@@ -1,27 +1,31 @@
 .resetButton {
-    border: .1rem solid black;
+	border: none;
     text-decoration: none;
-    padding: 0 .2rem;
+    padding: .2rem;
     margin: 0;
     margin-left: .7rem;
-    font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
     background-color: white;
-    color: black;
+	color: black;
+	transition: transform .2s ease-in-out;
+	text-align: center;
+	line-height: .8rem;
 }
 
-.resetButton.blink {
-    animation: blink 2s step-end infinite;
+.resetButton.animate {
+	animation: blink 2s infinite;
+	border: .1rem solid gray;
+}
+
+.image {
+	height: .8rem;
 }
 
 @keyframes blink { 
-    0% { 
-        background-color: white;
-        color: black;
+    0% {
+		transform: scale(1); 
     }
     50% {
-        background-color: black;
-        color: white;
+		transform: scale(1.2);
     }
 }
