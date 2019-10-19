@@ -18,14 +18,14 @@
 
 .mapTitle {
     position: absolute;
-    bottom: 0;
-    left: 1rem;
-    margin-bottom: .2rem;
-    margin-top: 0;
+    top: 0;
+    margin-top: .3rem;
     font-size: 1rem;
     font-style: italic;
     display: flex;
-    align-items: center;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
 }
 
 .section label, .section input {
@@ -39,7 +39,7 @@
 
 .section > svg {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: calc(100% - 1.6rem);

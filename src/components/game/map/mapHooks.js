@@ -17,6 +17,14 @@ function getIdsValidatedFromLocalStorage(id) {
     return [];
 }
 
+function resetFocus() {
+	const element = document.querySelector("input:not([disabled])[type='radio']");
+	if (element) {
+		element.focus();
+		element.blur();
+	}
+}
+
 export function useInitMapHandlersEffect(id, setIdHighlighted) {
     useEffect(() => {
       const areas = document.querySelectorAll("[data-id]");
@@ -50,7 +58,9 @@ export function useMapIdSelectedEffect(mapIdSelected) {
 export function useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapIdSelected) {
   useEffect(() => {
       setChoiceIdSelected("");
-      setMapIdSelected("");
+	  setMapIdSelected("");
+
+	  resetFocus();
 
       if (Array.isArray(idsValidated) && idsValidated.length) {
         idsValidated.forEach(
@@ -93,7 +103,7 @@ export function useValidateClickCallback(
 
     return useCallback(
       function handleValidateClick(e) {
-        e && e.preventDefault();
+        e.preventDefault();
 
         const isValid = mapIdSelected && mapIdSelected === choiceIdSelected;
 

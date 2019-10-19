@@ -37,13 +37,19 @@ function MapGame({id, title, data, MapComponent, options}) {
 
   // TODO : label/input (map) à externaliser
   // TODO : Ordre aléatoire des radio buttons de la map
-  // TODO : Titre + bouton à mettre dans le header (utiliser dispatchEvent)
   // TODO : Gestion du focus (css)
 
   return (
     <form className={styles.container} onSubmit={handleValidateClick}>
         <main className={styles.main}>
           <section className={styles.section}>
+		  	<p className={styles.mapTitle}>
+              {title}
+              {idsValidated.length > 0 && 
+                <ResetButton blink={finished} onClick={handleResetClick}/>
+              }
+            </p>
+			
             {data.map(item => {
               const id = `item-${item.id}`;
               return (
@@ -60,14 +66,7 @@ function MapGame({id, title, data, MapComponent, options}) {
                 </label>  
               );
             })}
-
             <MapComponent/>
-            <p className={styles.mapTitle}>
-              {title}
-              {idsValidated.length > 0 && 
-                <ResetButton blink={finished} onClick={handleResetClick}/>
-              }
-            </p>
           </section>
           <aside className={styles.aside}>
             <ListChoice 
