@@ -6,12 +6,13 @@ import lazy from '../../../hoc/lazy';
 import styles from './MapGame.module.css';
 import MapChoice from './MapChoice';
 import MapFooter from './MapFooter';
+import MapSourceLink from './MapSourceLink';
 
 const defaultOptions = {
   getChoiceLabel: item => `${item.id} - ${item.label}`
 };
 
-function MapGame({id, title, data, MapComponent, options}) {
+function MapGame({id, title, source, data, MapComponent, options}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
 
   const {
@@ -41,6 +42,7 @@ function MapGame({id, title, data, MapComponent, options}) {
 				animateResetButton={finished}
 				onClickResetButton={handleResetClick}
 			/>
+			{source && <MapSourceLink url={source}/>}
 			<MapChoice
 				data={data}
 				onChange={setMapIdSelected}

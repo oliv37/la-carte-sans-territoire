@@ -10,7 +10,7 @@ html, body, #root {
 }
 
 body {
-  padding-top: 2rem;
+  padding-top: 2.5rem;
 }
 
 .container-full-center {
@@ -22,4 +22,10 @@ body {
 
 .text-large {
   font-size: 1.7rem;
+}
+
+@media screen and (min-width: 38em) {
+	body {
+		padding-top: 2rem;
+	}
 }

@@ -1,0 +1,16 @@
+.link {
+	position: absolute;
+	left: .4rem;
+	bottom: .1rem;
+	font-style: italic;
+	color: black;
+	z-index: 1;
+}
+
+.external {
+	background-position: bottom .1rem right;
+	background-repeat: no-repeat;
+	background-image: linear-gradient(transparent,transparent),url(/img/external-link-icon.svg);
+	background-size: .9rem;
+	padding-right: 1rem;
+}
