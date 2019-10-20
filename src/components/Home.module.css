@@ -1,6 +1,10 @@
 .container {
     margin: 0;
-    padding: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
 }
   
 .item {
@@ -9,5 +13,5 @@
     width: calc(50% - .4rem);
     margin: .2rem;
     border: .1rem solid black;
-    border-radius: 1rem;
+	border-radius: 1rem;
 }
