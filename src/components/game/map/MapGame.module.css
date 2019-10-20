@@ -6,7 +6,8 @@
 
 .main {
     flex-grow: 1;
-    display: flex;
+	display: flex;
+	flex-direction: column;
     border-bottom: .1rem solid gray;
 }
 
@@ -46,17 +47,15 @@
 }
 
 .aside {
-    flex-basis: 18rem;
-    position: relative;
+	position: relative;
 }
 
-/* TODO : mobile first */
-@media screen and (max-width: 38em) {
+@media screen and (min-width: 38em) {
 	.main {
-		flex-direction: column;
+		flex-direction: row;
 	}
 
 	.aside {
-		flex-basis: auto;
+		flex-basis: 18rem;
 	}
 }
