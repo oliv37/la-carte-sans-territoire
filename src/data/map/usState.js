@@ -1,4 +1,4 @@
-export {ReactComponent as MapComponent} from "../../res/usState.svg";
+export {ReactComponent as MapComponent} from "../../res/map/usState.svg";
 
 export const data = [
     {"id": "AK", "label": "Alaska"},

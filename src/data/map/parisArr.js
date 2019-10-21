@@ -1,4 +1,4 @@
-export {ReactComponent as MapComponent} from "../../res/parisArr.svg";
+export {ReactComponent as MapComponent} from "../../res/map/parisArr.svg";
 
 export const options = {
     getChoiceLabel(item) {

@@ -14,7 +14,6 @@
 
 .resetButton.animate {
 	animation: blink 2s infinite;
-	border: .1rem solid gray;
 }
 
 .image {
