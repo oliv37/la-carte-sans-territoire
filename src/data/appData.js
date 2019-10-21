@@ -1,4 +1,5 @@
 import {MAP} from "../constants/gameType";
+import * as images from "../res/map";
 
 function createMapData(id, routePath, title, description, source) {
     return {
@@ -9,7 +10,7 @@ function createMapData(id, routePath, title, description, source) {
 		source,
         type: MAP,
         lazyDataModule: () => import(`./map/${id}.js`),
-        imageModule: import(`../res/map/${id}.svg`) // TODO : mettre une simple url pour l'image
+        image: images[id]
     };
 }
 

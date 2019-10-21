@@ -1,16 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './HomeLink.module.css';
 
-function HomeLink({to, text, imageModule}) {
-    const [imageUrl, setImageUrl] = useState(undefined);
-    
-    // TODO: ne plus charger de module et mettre une simple image
-    useEffect(() => {
-        imageModule.then(({default: imageUrl}) => setImageUrl(imageUrl));
-    }, [imageModule]);
-
-    const imageStyle = imageUrl && {"backgroundImage": `url(${imageUrl})`};
+function HomeLink({to, text, image}) {
+    const imageStyle = image && {"backgroundImage": `url(${image})`};
     
     return (
         <Link to={to} className={styles.homeLink}>
