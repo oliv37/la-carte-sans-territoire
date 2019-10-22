@@ -33,6 +33,14 @@
     cursor: pointer;
 }
 
+svg:global(.sw-3) [data-id] {
+	stroke-width: 3;
+}
+
+svg:global(.sw-12) [data-id] {
+	stroke-width: 1.2;
+}
+
 .section > svg [data-id].selected {
     cursor: default;
     fill: black;
