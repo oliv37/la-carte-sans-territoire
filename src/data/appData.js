@@ -1,5 +1,5 @@
 import {MAP} from "../constants/gameType";
-import * as images from "../res/map";
+import * as images from "../res/home";
 
 function createMapData(id, routePath, title, source) {
     return {
