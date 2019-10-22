@@ -7,9 +7,9 @@ function Home() {
     return (
         <ul className={styles.container}>
         {
-            appData.map(({id, routePath, description, image}) => (
+            appData.map(({id, routePath, title, image}) => (
                 <li key={id} className={styles.item}>
-                    <HomeLink to={routePath} text={description} image={image}/>
+                    <HomeLink to={routePath} text={title} image={image}/>
                 </li>
             ))
         }

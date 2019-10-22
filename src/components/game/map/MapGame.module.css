@@ -23,7 +23,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 1.6rem);
+    height: calc(100% - 2rem);
 }
 
 .section > svg [data-id] {
