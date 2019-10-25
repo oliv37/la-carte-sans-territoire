@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import InputChoice from './InputChoice';
 import styles from './ListChoice.module.css';
 
 function ListChoice({
-    data, 
+    data,
+	compare,
     onChange, 
     choiceIdSelected, 
     idHighlighted,
     idsValidated, 
-    getChoiceLabel
+	getChoiceLabel,
 }) {
+	const [dataSorted, setDataSorted] = useState([]);
+
+	useEffect(() => {
+		if (compare) {
+			setDataSorted([...data].sort(compare));
+		} else {
+			setDataSorted(data);
+		}
+	}, [data, compare]);
+
     return (
         <div className={styles.container}>
-            {data.map((item, index) => {
+            {dataSorted.map((item, index) => {
                 const {id} = item;
 
                 return (

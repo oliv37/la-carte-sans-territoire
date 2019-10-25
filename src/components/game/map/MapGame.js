@@ -12,7 +12,7 @@ const defaultOptions = {
   getChoiceLabel: item => `${item.id} - ${item.label}`
 };
 
-function MapGame({id, title, source, data, MapComponent, options}) {
+function MapGame({id, title, source, data, MapComponent, options, compareList}) {
   const {getChoiceLabel} = Object.assign({}, defaultOptions, options);
 
   const {
@@ -54,11 +54,12 @@ function MapGame({id, title, source, data, MapComponent, options}) {
           <aside className={styles.aside}>
             <ListChoice 
               data={data} 
+			  compare={compareList}
               onChange={setChoiceIdSelected}
               choiceIdSelected={choiceIdSelected}
               idHighlighted={idHighlighted}
               idsValidated={idsValidated}
-              getChoiceLabel={getChoiceLabel}
+			  getChoiceLabel={getChoiceLabel}
             />
           </aside>
         </main>
@@ -71,6 +72,11 @@ function MapGame({id, title, source, data, MapComponent, options}) {
   );
 }
 
-const mapDataModuleToProps = ({data, MapComponent, options}) => ({data, MapComponent, options});
+const mapDataModuleToProps = dataModule => ({
+	data: dataModule.data, 
+	MapComponent: dataModule.MapComponent, 
+	options: dataModule.options, 
+	compareList: dataModule.compareList
+});
 
 export default lazy(mapDataModuleToProps)(MapGame);

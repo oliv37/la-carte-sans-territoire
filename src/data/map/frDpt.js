@@ -5,7 +5,7 @@ export const options = {
         let {id, label} = item;
     
         if (id.length === 1) {
-            id = `0${id}`;
+			id = `0${id}`;
         }
 
         return `${id} ${label}`;
@@ -13,6 +13,8 @@ export const options = {
 };
 
 export const data = [
+	{"id": "29", "label": "Finistère"},
+	{"id": "22", "label": "Côtes-d'Armor"},
     {"id": "1", "label": "Ain"},
     {"id": "2", "label": "Aisne"},
     {"id": "3", "label": "Allier"},
@@ -35,14 +37,12 @@ export const data = [
     {"id": "2A", "label": "Corse-du-sud"},
     {"id": "2B", "label": "Haute-Corse"},
     {"id": "21", "label": "Côte-d'Or"},
-    {"id": "22", "label": "Côtes-d'Armor"},
     {"id": "23", "label": "Creuse"},
     {"id": "24", "label": "Dordogne"},
     {"id": "25", "label": "Doubs"},
     {"id": "26", "label": "Drôme"},
     {"id": "27", "label": "Eure"},
     {"id": "28", "label": "Eure-et-loir"},
-    {"id": "29", "label": "Finistère"},
     {"id": "30", "label": "Gard"},
     {"id": "31", "label": "Haute-garonne"},
     {"id": "32", "label": "Gers"},
@@ -110,3 +110,14 @@ export const data = [
     {"id": "94", "label": "Val-de-marne"},
     {"id": "95", "label": "Val-d'oise"}
 ];
+
+function idStrToNumber(idStr) {
+	return Number(idStr.replace(/[AB]/, "0"));
+}
+
+export function compareList(item1, item2) {
+	const id1 = idStrToNumber(item1.id);
+	const id2 = idStrToNumber(item2.id);
+
+	return id1 - id2;
+}
