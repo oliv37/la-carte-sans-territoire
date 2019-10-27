@@ -1,3 +1,5 @@
+// TODO : à supprimer
+
 import {useState, useEffect, useCallback, useRef} from 'react';
 import localStorage from "../../../utils/localStorage";
 import styles from './MapGame.module.css';

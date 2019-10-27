@@ -14,7 +14,7 @@ const lazy = (mapDataModuleToProps = defaultMapDataModuleToProps) => Component =
 
             lazyDataModule()
                 .then(dataModule => setDataModule(dataModule))
-                .catch(err => setDataModule(false));
+                .catch(() => setDataModule(false));
 
         }, [lazyDataModule]);
 
