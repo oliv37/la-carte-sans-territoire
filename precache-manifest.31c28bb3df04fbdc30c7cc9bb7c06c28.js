@@ -1,51 +1,51 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "34ba4c72aa0dc267ef7606a8c83056d8",
+    "revision": "b5b95fff659abdc2c3facd43eb719645",
     "url": "/la-carte-sans-territoire/index.html"
   },
   {
-    "revision": "b216cd66c5cad68c49ff",
-    "url": "/la-carte-sans-territoire/static/css/main.453189f8.chunk.css"
+    "revision": "b6ab0a6c5b6823c513d8",
+    "url": "/la-carte-sans-territoire/static/css/main.07ecc658.chunk.css"
   },
   {
-    "revision": "7fd978e6580bb5f6d3ae",
-    "url": "/la-carte-sans-territoire/static/js/2.0ce2a60d.chunk.js"
+    "revision": "ffbcc4bad049469d3a46",
+    "url": "/la-carte-sans-territoire/static/js/2.a314eb35.chunk.js"
   },
   {
-    "revision": "2bc72b17978e1129b248",
-    "url": "/la-carte-sans-territoire/static/js/3.3eb5ad5f.chunk.js"
+    "revision": "27e163e2f00d16905da0",
+    "url": "/la-carte-sans-territoire/static/js/3.c3022f6a.chunk.js"
   },
   {
-    "revision": "efbf952bdd4ef8e1b479",
-    "url": "/la-carte-sans-territoire/static/js/4.7f82794d.chunk.js"
+    "revision": "a86ba1fcb2c49c4d88b1",
+    "url": "/la-carte-sans-territoire/static/js/4.1bf0805e.chunk.js"
   },
   {
-    "revision": "bb0f80d5b94e700e60a0",
-    "url": "/la-carte-sans-territoire/static/js/5.cdfb022c.chunk.js"
+    "revision": "f1d1e99a66da295e7e5f",
+    "url": "/la-carte-sans-territoire/static/js/5.32d9b59c.chunk.js"
   },
   {
-    "revision": "c81067f72a81a78a77fe",
-    "url": "/la-carte-sans-territoire/static/js/6.fa1b97e9.chunk.js"
+    "revision": "11babd7dd83125665742",
+    "url": "/la-carte-sans-territoire/static/js/6.9e1a53b0.chunk.js"
   },
   {
-    "revision": "287e4900fcac96e4fcea",
-    "url": "/la-carte-sans-territoire/static/js/7.fe226837.chunk.js"
+    "revision": "6ee2901f989836edeb7a",
+    "url": "/la-carte-sans-territoire/static/js/7.e0fee843.chunk.js"
   },
   {
-    "revision": "b216cd66c5cad68c49ff",
-    "url": "/la-carte-sans-territoire/static/js/main.6dbfdf65.chunk.js"
+    "revision": "b6ab0a6c5b6823c513d8",
+    "url": "/la-carte-sans-territoire/static/js/main.8cc6d959.chunk.js"
   },
   {
-    "revision": "ca15594004673727ee27",
-    "url": "/la-carte-sans-territoire/static/js/runtime~main.7de4b3bb.js"
+    "revision": "13ce691f2a3b80ad41c2",
+    "url": "/la-carte-sans-territoire/static/js/runtime~main.056a8288.js"
+  },
+  {
+    "revision": "016a9d8265bc9b694f8d237381e83c13",
+    "url": "/la-carte-sans-territoire/static/media/africa.016a9d82.svg"
   },
   {
     "revision": "4cb888051883ec6066ca76630b36613e",
     "url": "/la-carte-sans-territoire/static/media/africa.4cb88805.svg"
-  },
-  {
-    "revision": "7d8edebeab087818adc0a8474ff44594",
-    "url": "/la-carte-sans-territoire/static/media/africa.7d8edebe.svg"
   },
   {
     "revision": "442d71b0b395c4276f5e0ab56bb46e64",
@@ -64,8 +64,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/la-carte-sans-territoire/static/media/frReg.3cce3ccd.svg"
   },
   {
-    "revision": "457d06f032def71a6d8b07785d5a87fa",
-    "url": "/la-carte-sans-territoire/static/media/frReg.457d06f0.svg"
+    "revision": "3def526fe0d375dc8250cda89b48e2ee",
+    "url": "/la-carte-sans-territoire/static/media/frReg.3def526f.svg"
   },
   {
     "revision": "9e857258087d39e56e08e6e590d93b6b",
