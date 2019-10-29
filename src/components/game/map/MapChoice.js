@@ -8,7 +8,6 @@ function MapChoice({data, onChange, mapIdSelected, idsValidated}) {
 
 	return data.map(item => {
 		const id = `item-${item.id}`;
-		// TODO : shuffle data
 
 		return (
 			<label id={id} key={item.id} className={styles.label}>

@@ -1,4 +1,12 @@
-// TODO : utiliser le type des actions
+import {
+	UPDATE_ID_HIGHTLIGHTED,
+	UPDATE_MAP_ID_SELECTED,
+	UPDATE_CHOICE_ID_SELECTED,
+	UPDATE_IDS_VALIDATED,
+	UPDATE_HAS_ERROR,
+	RESET_IDS_SELECTED,
+	RESET,
+} from "./mapActions";
 
 function getIdsValidatedFromLocalStorage(id) {
 	try {
@@ -26,38 +34,38 @@ export function init(id) {
 
 export function reducer(state, action) {
 	switch(action.type) {
-		case 'update_id_hightlighted':
+		case UPDATE_ID_HIGHTLIGHTED:
 			return {
 				...state,
 				idHighlighted: action.payload
 			};
-		case 'update_map_id_selected': 
+		case UPDATE_MAP_ID_SELECTED:
 			return {
 				...state,
 				mapIdSelected: action.payload
 			};
-		case 'update_choice_id_selected':
+		case UPDATE_CHOICE_ID_SELECTED:
 			return {
 				...state,
 				choiceIdSelected: action.payload
 			};
-		case 'update_ids_validated':
+		case UPDATE_IDS_VALIDATED:
 			return {
 				...state,
 				idsValidated: action.payload
 			};
-		case 'update_has_error':
+		case UPDATE_HAS_ERROR:
 			return {
 				...state,
 				hasError: action.payload
 			};
-		case 'reset_ids_selected':
+		case RESET_IDS_SELECTED:
 			return {
 				...state,
 				mapIdSelected: "",
 				choiceIdSelected: ""
 			};
-		case 'reset':
+		case RESET:
 			return init(action.payload);
 		default:
 			return state;

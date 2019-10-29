@@ -1,165 +1,176 @@
-// TODO : à supprimer
-
-import {useState, useEffect, useCallback, useRef} from 'react';
-import localStorage from "../../../utils/localStorage";
+import {useEffect, useCallback, useRef, useReducer} from 'react';
+import {reducer, init} from "./mapReducer";
+import {resetFocus} from "./mapUtils";
 import styles from './MapGame.module.css';
+import {
+	updateIdHighlighted,
+	updateMapIdSelected,
+	updateChoiceIdSelected,
+	updateIdsValidated,
+	updateHasError,
+	resetIdsSelected,
+	reset,
+} from "./mapActions";
 
 const highlightTimeout = 1500;
 const errorTimeout = 1500;
 
-function getIdsValidatedFromLocalStorage(id) {
-  try {
-      const itemValue = localStorage.getItem(id);
-      const idsValidated = itemValue && JSON.parse(itemValue);
-      if (Array.isArray(idsValidated)) {
-        return idsValidated;
-      }
-    } catch {}
+export function useResetStateEffect(id, dispatch) {
+	const isInitialMount = useRef(true);
 
-    return [];
+	useEffect(() => {
+		if (isInitialMount.current) {
+			isInitialMount.current = false;
+			return;
+		}
+
+		dispatch(reset());
+	}, [id, dispatch]);
 }
 
-function resetFocus() {
-	const element = document.querySelector("input:not([disabled])[type='radio']");
-	if (element) {
-		element.focus();
-		element.blur();
-	}
-}
-
-export function useInitMapHandlersEffect(id, setIdHighlighted) {
+export function useInitMapHandlersEffect(id, dispatch) {
     useEffect(() => {
-      const areas = document.querySelectorAll("[data-id]");
-      Array.from(areas).forEach(el => {
-        const mapId = el.dataset.id;
+    	const areas = document.querySelectorAll("[data-id]");
+    	Array.from(areas).forEach(el => {
+    		const dataId = el.dataset.id;
         
-        el.addEventListener('click', () => {
+    		el.addEventListener('click', () => {
+    			if (el.classList.contains(styles.disabled)) {
+					dispatch(updateIdHighlighted(dataId));
+            		return;
+        		}
           
-          if (el.classList.contains(styles.disabled)) {
-            setIdHighlighted(mapId);
-            return;
-          }
-          
-          document.querySelector(`label#item-${mapId}`).click();
-        });
-      });
-    }, [id, setIdHighlighted]);
+          		document.querySelector(`label#item-${dataId}`).click();
+			});
+		});
+	}, [id, dispatch]);
 }
 
 export function useMapIdSelectedEffect(mapIdSelected) {
     useEffect(() => {
-      if (mapIdSelected) {
-        const el = document.querySelector(`[data-id="${mapIdSelected}"`);
-        el.classList.add(styles.selected);
+    	if (mapIdSelected) {
+    		const el = document.querySelector(`[data-id="${mapIdSelected}"`);
+    		el.classList.add(styles.selected);
   
-        return () => el && el.classList.remove(styles.selected);
-      }
-    }, [mapIdSelected]);
+    		return () => el && el.classList.remove(styles.selected);
+    	}
+	}, [mapIdSelected]);
 }
 
-export function useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapIdSelected) {
-  useEffect(() => {
-      setChoiceIdSelected("");
-	  setMapIdSelected("");
+export function useIdHightlightedEffect(idHightlighted, dispatch) {
+	useEffect(() => {
+		if (idHightlighted) {
+			const el = document.querySelector(`[data-id='${idHightlighted}'`);
+			el.classList.add(styles.highlight);
+  
+			const timeoutId = setTimeout(
+				() => dispatch(updateIdHighlighted("")), 
+				highlightTimeout
+			);
+  
+			return () => {
+		  		clearTimeout(timeoutId);
+				el.classList.remove(styles.highlight);
+			};
+		}
 
-	  resetFocus();
-
-      if (Array.isArray(idsValidated) && idsValidated.length) {
-        idsValidated.forEach(
-          id => document.querySelector(`[data-id="${id}"]`).classList.add(styles.disabled)
-        );
-      } else {
-        Array.from(document.querySelectorAll('[data-id]')).forEach(
-          el => el.classList.remove(styles.disabled)
-        );
-      }
-
-  }, [idsValidated, setChoiceIdSelected, setMapIdSelected]);
+	}, [idHightlighted, dispatch]);
 }
 
-export function useIdHightlightedEffect(idHightlighted, setIdHighlighted) {
-  useEffect(() => {
-    if (idHightlighted) {
-      const el = document.querySelector(`[data-id='${idHightlighted}'`);
-      el.classList.add(styles.highlight);
+export function useIdsValidatedEffect(idsValidated, dispatch) {
+	useEffect(() => {
+		dispatch(resetIdsSelected());
+		resetFocus();
+  
+		if (Array.isArray(idsValidated) && idsValidated.length) {
+			idsValidated.forEach(
+				id => document.querySelector(`[data-id="${id}"]`).classList.add(styles.disabled)
+		  	);
+		} else {
+			Array.from(document.querySelectorAll('[data-id]')).forEach(
+				el => el.classList.remove(styles.disabled)
+			);
+		}
+	}, [idsValidated, dispatch]);
+}
 
-      const timeoutId = setTimeout(() => setIdHighlighted(""), highlightTimeout);
+export function useValidateClickCallback(id, state, dispatch) {
+	const {mapIdSelected, choiceIdSelected, idsValidated} = state;
+	const timeoutIdErrorRef = useRef(null);
+  
+	return useCallback(
+		function handleValidateClick(e) {
+			e.preventDefault();
+  
+			const isValid = mapIdSelected && mapIdSelected === choiceIdSelected;
 
-      return () => {
-        clearTimeout(timeoutId);
-        el.classList.remove(styles.highlight);
-      };
-    }
-  }, [idHightlighted, setIdHighlighted]);
+			clearTimeout(timeoutIdErrorRef.current);
+			dispatch(updateHasError(!isValid));
+		 
+			if (isValid) {
+				const newIdsValidated = [...idsValidated, choiceIdSelected];
+			
+				dispatch(updateIdsValidated(newIdsValidated));
+				localStorage.setItem(id, JSON.stringify(newIdsValidated));
+		  	} else {
+				timeoutIdErrorRef.current = setTimeout(
+					() => dispatch(updateHasError(false)), 
+					errorTimeout
+				);
+			}
+		}, [id, mapIdSelected, choiceIdSelected, idsValidated, dispatch]
+	);
 }
   
-export function useValidateClickCallback(
-  id, 
-  mapIdSelected, 
-  choiceIdSelected, 
-  idsValidated, 
-  setIdsValidated,
-  setHasError
-) {
-    const timeoutIdRef = useRef(null);
-
-    return useCallback(
-      function handleValidateClick(e) {
-        e.preventDefault();
-
-        const isValid = mapIdSelected && mapIdSelected === choiceIdSelected;
-
-        clearTimeout(timeoutIdRef.current);
-        setHasError(!isValid);
-        
-        if (isValid) {
-          const newIdsValidated = [...idsValidated, choiceIdSelected];
-          
-          setIdsValidated(newIdsValidated);
-          localStorage.setItem(id, JSON.stringify(newIdsValidated));
-        } else {
-          timeoutIdRef.current = setTimeout(() => setHasError(false), errorTimeout);
-        }
-      }, [id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated, setHasError]
-    );
-}
-
-export function useResetClickCallback(id, setIdsValidated) {
-  return useCallback(
-    function handleResetClick() {
-      if (window.confirm("Souhaitez-vous vraiment recommencer cette carte ?")) {
-        setIdsValidated([]);
-        localStorage.removeItem(id);
-      }
-    }, [id, setIdsValidated]
-  );
+export function useResetClickCallback(id, dispatch) {
+	return useCallback(
+		function handleResetClick() {
+			if (window.confirm("Souhaitez-vous vraiment recommencer cette carte ?")) {
+				dispatch(updateIdsValidated([]));
+				localStorage.removeItem(id);
+			}
+		}, [id, dispatch]
+	);
 }
 
 export function useMapGame(id) {
-  const [choiceIdSelected, setChoiceIdSelected] = useState("");
-  const [mapIdSelected, setMapIdSelected] = useState("");
-  const [idHighlighted, setIdHighlighted] = useState("");
-  const [idsValidated, setIdsValidated] = useState(() => getIdsValidatedFromLocalStorage(id));
-  const [hasError, setHasError] = useState(false);
+	const [state, dispatch] = useReducer(reducer, id, init);
+	const {
+		choiceIdSelected,
+		mapIdSelected,
+		idsValidated,
+		idHighlighted,
+		hasError,
+	} = state;
 
-  useInitMapHandlersEffect(id, setIdHighlighted);
-  useMapIdSelectedEffect(mapIdSelected);
-  useIdHightlightedEffect(idHighlighted, setIdHighlighted);
-  useIdsValidatedEffect(idsValidated, setChoiceIdSelected, setMapIdSelected);
-  const handleValidateClick = useValidateClickCallback(
-    id, mapIdSelected, choiceIdSelected, idsValidated, setIdsValidated, setHasError
-  );
-  const handleResetClick = useResetClickCallback(id, setIdsValidated);
+	useInitMapHandlersEffect(id, dispatch);
+	useMapIdSelectedEffect(mapIdSelected);
+	useIdHightlightedEffect(idHighlighted, dispatch);
+	useIdsValidatedEffect(idsValidated, dispatch);
+	useResetStateEffect(id, dispatch);
+	
+	const handleValidateClick = useValidateClickCallback(id, state, dispatch);
+	const handleResetClick = useResetClickCallback(id, dispatch);
 
-  return {
-    choiceIdSelected,
-    mapIdSelected,
-    idHighlighted,
-    idsValidated,
-    hasError,
-    setMapIdSelected,
-    setChoiceIdSelected,
-    handleValidateClick,
-    handleResetClick
-  };
+	const setMapIdSelected = useCallback(
+		mapIdSelected => dispatch(updateMapIdSelected(mapIdSelected)),
+		[]
+	);
+
+	const setChoiceIdSelected = useCallback(
+		choiceIdSelected => dispatch(updateChoiceIdSelected(choiceIdSelected)),
+		[]
+	);
+  
+	return {
+	  choiceIdSelected,
+	  mapIdSelected,
+	  idHighlighted,
+	  idsValidated,
+	  hasError,
+	  setMapIdSelected,
+	  setChoiceIdSelected,
+	  handleValidateClick,
+	  handleResetClick
+	};
 }
