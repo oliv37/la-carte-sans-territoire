@@ -47,8 +47,9 @@ export function resetIdsSelected() {
 	};
 }
 
-export function reset() {
+export function reset(id) {
 	return {
 		type: RESET,
+		payload: id
 	};
 }

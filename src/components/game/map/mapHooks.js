@@ -24,7 +24,7 @@ export function useResetStateEffect(id, dispatch) {
 			return;
 		}
 
-		dispatch(reset());
+		dispatch(reset(id));
 	}, [id, dispatch]);
 }
 
