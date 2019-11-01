@@ -18,7 +18,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "test:ci": "react-app-rewired test --ci --runInBand --collectCoverage=true --watchAll=false --reporters='default' --reporters='jest-junit'",
+    "test:ci": "react-app-rewired test --ci --runInBand --watchAll=false --reporters='default' --reporters='jest-junit'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
