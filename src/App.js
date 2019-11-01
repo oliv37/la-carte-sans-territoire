@@ -7,8 +7,17 @@ import LazyMapGame from './components/game/map/MapGame';
 import {MAP} from './constants/gameType';
 import appData from './data/appData';
 
-const isProd = process.env.NODE_ENV === 'production';
-const basename = isProd ? '/la-carte-sans-territoire' : undefined;
+const GITHUB_PAGES_BASENAME = "/la-carte-sans-territoire";
+
+const basename = (function() {
+	try {
+		if (window.location.pathname.startsWith(GITHUB_PAGES_BASENAME)) {
+			return GITHUB_PAGES_BASENAME;
+		}
+	} catch(e) {}
+
+	return undefined;
+})();
 
 function getLazyComponent(type) {
   switch(type) {
