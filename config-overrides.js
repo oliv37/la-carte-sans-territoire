@@ -1,4 +1,11 @@
-module.exports = function override(config, env) {
-    // const {ReactComponent} = config.module.rules[2].oneOf[1].options.plugins[0][1].loaderMap.svg;
-    return config;
+module.exports = {
+	jest: function(config) {
+		if (process.env.CI) {
+			config.bail = 1;
+			config.collectCoverage = true;
+			config.reporters = ["default", "jest-junit"];
+		}
+
+		return config;
+	}
 };
