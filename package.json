@@ -45,6 +45,6 @@
     "react-test-renderer": "^16.11.0"
   },
   "jest-junit": {
-	  "outputDirectory": "reports/junit/js-test-results.xml"
+    "outputDirectory": "reports/junit/js-test-results.xml"
   }
 }
